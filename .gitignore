@@ -1,11 +1,5 @@
-*.aux
-*.glg
-*.glo
-*.gls
-*.ist
-*.log
 *.pdf
-*.log
+bin
 
 *.swp
 Session.vim

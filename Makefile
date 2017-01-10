@@ -1,17 +1,19 @@
-ARGS=-file-line-error -halt-on-error
+OUTDIR=bin
 DOC=comments
+PDF=$(OUTDIR)/$(DOC).pdf
+
+PDF_ARGS=-file-line-error -halt-on-error -output-directory=$(OUTDIR)
+GLS_ARGS=-d $(OUTDIR)
 
 all:
-	pdflatex $(ARGS) $(DOC)
-	makeglossaries $(DOC)
-	pdflatex $(ARGS) $(DOC)
+	mkdir -p bin
+	pdflatex $(PDF_ARGS) $(DOC)
+	makeglossaries $(GLS_ARGS) $(DOC)
+	bibtex $(OUTDIR)/$(DOC)
+	pdflatex $(PDF_ARGS) $(DOC)
+	pdflatex $(PDF_ARGS) $(DOC)
+	mv $(PDF) .
 
 clean:
-	rm -f $(DOC).aux
-	rm -f $(DOC).glg
-	rm -f $(DOC).glo
-	rm -f $(DOC).gls
-	rm -f $(DOC).ist
-	rm -f $(DOC).log
-	rm -f $(DOC).pdf
-	rm -f texput.log
+	rm -rf bin
+	rm -f $(PDF)
