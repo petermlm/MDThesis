@@ -1,6 +1,8 @@
 OUTDIR=bin
 DOC=comments
-PDF=$(OUTDIR)/$(DOC).pdf
+
+OUTPDF=$(OUTDIR)/$(DOC).pdf
+PDF=$(DOC).pdf
 
 PDF_ARGS=-file-line-error -halt-on-error -output-directory=$(OUTDIR)
 GLS_ARGS=-d $(OUTDIR)
@@ -12,7 +14,7 @@ all:
 	bibtex $(OUTDIR)/$(DOC)
 	pdflatex $(PDF_ARGS) $(DOC)
 	pdflatex $(PDF_ARGS) $(DOC)
-	mv $(PDF) .
+	mv $(OUTPDF) $(PDF)
 
 clean:
 	rm -rf bin
