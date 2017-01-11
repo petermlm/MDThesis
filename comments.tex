@@ -1,6 +1,12 @@
 \documentclass[12pt]{article}
 
+% =============================================================================
+% Packages
+
 \usepackage[toc]{glossaries}
+
+% =============================================================================
+% Define Title
 
 \title{Comments}
 \author{Pedro Melgueira\\
@@ -9,13 +15,25 @@
 }
 \date{}
 
-\input{util}
+% =============================================================================
+% Settings
 
+\setcounter{tocdepth}{2}
+
+% =============================================================================
+% Preamble inputs
+
+\input{util}
 \input{glossaries}
+
+% =============================================================================
+% Document
 
 \begin{document}
 
 \maketitle
+
+\tableofcontents
 
 \input{introduction}
 \input{papers}
