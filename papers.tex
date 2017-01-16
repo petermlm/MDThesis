@@ -42,13 +42,13 @@ few sources where~\gls{edm} has been used. They are the following:
 \begin{itemize}
     \item Discover potential student groups with similar characteristics and
         reactions to a particular pedagogical strategy;~\cite{ind_008}
-    \item Detect students' misuse or game-playing; \TODO{Yet to be explore}
+    \item Detect students' misuse or game-playing; (2)
     \item Group students who are hint-driven or failure-driven and find common
-        misconceptions that students possess; \TODO{Yet to be explore}
+        misconceptions that students possess; (34)
     \item Identify learners with low motivation and find remedial actions to
-        lower drop-out rates; \TODO{Yet to be explore}
+        lower drop-out rates; (9)
     \item Predict/classify students when using intelligent tutoring systems;
-        \TODO{Yet to be explore}
+        (16)
 \end{itemize}
 
 In detail, there are methods that have been applied to detect students marks.
@@ -57,16 +57,14 @@ In detail, there are methods that have been applied to detect students marks.
     \item Predicting students' grades from test scores using neural
         networks;~\cite{ind_009}
     \item Predicting student academic success (classes that are successful or
-        not) using discriminant function analysis; \TODO{Yet to be explore}
+        not) using discriminant function analysis; (21)
     \item Classifying students using genetic algorithms to predict their final
-        grade; \TODO{Yet to be explore}
+        grade; (30)
     \item Predicting a student's academic success (to classify as low, medium
-        and high risk classes) using different data mining methods; \TODO{Yet
-        to be explore}
+        and high risk classes) using different data mining methods; (30)
     \item Predicting a student’s marks (pass and fail classes) using regression
-        techniques in Hellenic Open University data; \TODO{Yet to be explore}
-    \item Using neural network models from Moodle logs; \TODO{Yet to be
-        explore}
+        techniques in Hellenic Open University data; (18)
+    \item Using neural network models from Moodle logs; (11)
 \end{itemize}
 
 \subsection{Work From This Paper}
@@ -355,3 +353,51 @@ important as a reference in future work.
 \subsection{Work From This Paper}
 
 References 18, 16, 5, 8, are 9 worth looking into.
+
+% =============================================================================
+\section{\texttt{IND\_011} - Predicting students' marks from Moodle logs using
+neural network models}
+
+Paper is~\cite{ind_011}. But found it on Google Scholar while searching for
+Moodle Data Mining. This is another paper that uses neural networks
+like~\cite{ind_009} did.
+
+\subsection{Comment}
+
+Another paper that attempts to predict student's success given their usage of
+Moodle. In this case we see the usage of neural networks, as we've seen
+in~\cite{ind_009}. Like in~\cite{ind_007, ind_008, ind_003, ind_010}, Moodle
+logs are processed alongside final grades in order to build features for
+students.  Neural networks are then trained using that data.
+
+The usual information is taken from logs. For example, date and time of access
+of Moodle, if a user saw an item, if it wrote somethings in a forum etc. This
+data is pre-processed in order to build a dataset. The built dataset for these
+experiments is made from entries of 240 students. The trained neural networks
+are Radial Basis Functions. They are trained in a few different ways.
+
+It is shown how training a neural network with an incremental hidden layer
+algorithm yields a model capable of achieving 80\% of correctly classified
+instances. Other ways to train the networks are shown to be very successful
+achieving percentages above 70\%.
+
+Not much is known about how the success metric is calculated, or how the
+alternative ways to train the network actually work. But they are listed
+nonetheless. The paper leaves a few questions opened, namely the usefulness of
+the actual study.
+
+Neural networks are presented as a good model to predict students success, and
+are shown to be, in fact, a great model for it. Different ways to train a
+network are shown and some hints as to how data is pre-processed into useful
+datasets are also shown. Even if the paper is short, doesn't go into detail
+about certain aspects of the project, and leaves things opened, it is still a
+great resource.
+
+\subsection{Relevant Points}
+
+Networks networks are once again shown to work in predicting student's success
+given their Moodle usage habits.
+
+\subsection{Work From This Paper}
+
+See reference 7 in this paper about Radial Basis Functions.
