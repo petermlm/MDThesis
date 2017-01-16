@@ -3,7 +3,7 @@
 % =============================================================================
 \section{\texttt{IND\_007} - Data Mining Algorithms to Classify Students}
 
-Paper is \cite{ind_007}. Lists a lot of resources for other DM in \gls{lms}.
+Paper is~\cite{ind_007}. Lists a lot of resources for \gls{dm} in \gls{lms}.
 
 \subsection{Comment}
 
@@ -36,12 +36,12 @@ points to useful resources.
 \subsection{Relevant Points}
 
 What is taken from this paper is the argument that ``(\dots) one of the most
-useful DM tasks in e-learning is classification''.
+useful~\gls{dm} tasks in e-learning is classification''. The paper then lists a
+few sources where~\gls{edm} has been used. They are the following:
 
 \begin{itemize}
     \item Discover potential student groups with similar characteristics and
-        reactions to a particular pedagogical strategy; \TODO{Yet to be
-        explore}
+        reactions to a particular pedagogical strategy;~\cite{ind_008}
     \item Detect students' misuse or game-playing; \TODO{Yet to be explore}
     \item Group students who are hint-driven or failure-driven and find common
         misconceptions that students possess; \TODO{Yet to be explore}
@@ -54,8 +54,8 @@ useful DM tasks in e-learning is classification''.
 In detail, there are methods that have been applied to detect students marks.
 
 \begin{itemize}
-    \item Predicting students' grades from test scores using neural networks;
-        \TODO{Yet to be explore}
+    \item Predicting students' grades from test scores using neural
+        networks;~\cite{ind_009}
     \item Predicting student academic success (classes that are successful or
         not) using discriminant function analysis; \TODO{Yet to be explore}
     \item Classifying students using genetic algorithms to predict their final
@@ -78,8 +78,6 @@ From this paper we will analyse the listed techniques and methodologies.
 Portfolio For Managing Classroom Processes By Applying Decision Tree And Data
 Cube Technology}
 
-\WORKON{Need to finish this paper's comment}
-
 Paper is~\cite{ind_008}. An experiment in which web logs of a \gls{lms} get
 analysed in order to find good student behaviour. This paper was found
 from~\cite{ind_007}.
@@ -89,22 +87,37 @@ from~\cite{ind_007}.
 \gls{lms} systems, like Moodle, generate logs which describe that activities of
 it's users. Those logs contain entries for when students login, when they ask
 questions, when they offer proposals on so on. Analysing these logs in order to
-understand if student performance is good or bad is not trivial. So
-some~\gls{dm} techniques are used to gain an understanding of student
-performance.
+understand if student performance is good or bad is not trivial because they
+were not made for pedagogical purposes. So some~\gls{dm} techniques are used to
+gain an understanding of student performance.
 
 The paper states that the data from the logs is initially transformed to be
 inserted into a relational database. SQL is then used to pre-process that data.
 Data cube technology is used for multidimensional data viewing. Decision trees
-are also constructed from the data.
+are also constructed from the data. These decision trees constructed from the
+web logs are the final results which shed light on student behaviour.
+
+The logs in questions are made in a system that implements IBIS. The logs are
+processed and inserted into data cubes for later analysis. The aim of the
+analysis is to check if certain pedagogical strategies work. The analysis later
+use decision trees.
+
+The paper is too long and repeats a few sections. It is not that clear how the
+logs are processed or how SQL and data cubes are used for analysus. It is also
+not clear how decision trees are built or what they represent.
+
+This is a useful paper with some different methods worth reading about, even if
+data cube isn't that common in the rest of the literature explored until this
+point.
 
 \subsection{Relevant Points}
 
-\TODO{Write this section}
+This paper is useful because it is an example of mining web logs for~\gls{edm}.
+Also useful for it shows the usage of data cubes, which isn't that common.
 
 \subsection{Work From This Paper}
 
-\TODO{Write this section}
+No further work is done for this paper.
 
 % =============================================================================
 \section{\texttt{IND\_009} - Predicting Performance From Test Scores Using
@@ -159,10 +172,69 @@ This paper is important because it is prof that neural networks can be used to
 classify student performance. It is also important because it shows a useful
 and successful tasks in the world of~\gls{edm}.
 
-Ideas from this paper may be used for later study.
+Ideas from this paper may be used for later study, namely how data is divided
+into fold for training and testing, how resampling is done to generate more
+data, and how it also influences the correctness of the trained models.
 
 \subsection{Work From This Paper}
 
 This paper only has four references, and all of them are related with Neural
 Networks. Those references might came in handy if work is to be done in Neural
 Networks, but not for data mining in~\gls{lms}.
+
+% =============================================================================
+\section{\texttt{IND\_003} - Web Usage Mining for Predicting Final Marks of
+Students That Use Moodle Courses}
+
+Paper is~\cite{ind_003}. Paper~\cite{ind_007} is related to this one, for the
+authors and experiments in this paper are the same as in~\cite{ind_007}, but
+are presented with much more detail.
+
+\subsection{Comment}
+
+This paper mines web logs of~\gls{lms} in order to take meaning from them. Like
+in~\cite{ind_007} and~\cite{ind_008}, it is asserted that extracting meaningful
+information from logs is not trivial, so~\gls{dm} methodologies are used. The
+paper makes it so, while presenting the various algorithms testing with
+different dataset, having some of which being the results of resampling.
+
+The paper shows how data from seven courses is taken and mined. That data
+consists of web logs detailing the activities of students in Moodle. Those
+activities are, for example, when a student logged in, when it answered a
+question, when it saw a forum post, etc. Several algorithms are executed over
+this data in order to classify students. Further pre-processing tasks are
+executed over the same data and differences in accuracy are observed.
+
+We are able to see the results of various algorithms executed with different
+datasets. It is possible to observe how different pre-processing methodologies
+influence the final results. The paper presents several ways to pre-process
+data, and many algorithms.
+
+Looking at all of the results, we see that no algorithm got a better ``Global
+Percentage of Correctly Classified'' percentage than 66\%. This level of
+accuracy leaves much to be desired. The geometric mean is used to evaluate the
+accuracy of algorithms with imbalanced data. We see that many algorithms get
+0\% in this indicator, while other got percentages below 50\% and close to 0\%.
+This is very bad.
+
+Decision trees are concluded to be the best model for they perform better in
+term of ``Global Percentage of Correctly Classified'' and in geometric mean.
+These models are best executed with the presented methods for pre-processing.
+The final values are still considered to be low, but the results make sense.
+
+\subsection{Relevant Points}
+
+Again, we see how using data mining on~\gls{lms} logs is useful. We also see
+how classification is useful.
+
+This paper presents a few tools which will be extremely important to
+pre-process data in order to prepare it for the algorithms. It is intend that
+decision trees are a good model to classify students into different groups
+given their activity in Moodle.
+
+\subsection{Work From This Paper}
+
+Find more about Moodle Data Mining Tool and find more work done by these
+authors.
+
+Look further into using decision trees to mine Moodle data.
