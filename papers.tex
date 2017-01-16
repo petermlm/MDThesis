@@ -190,6 +190,55 @@ Paper is~\cite{ind_003}. Paper~\cite{ind_007} is related to this one, for the
 authors and experiments in this paper are the same as in~\cite{ind_007}, but
 are presented with much more detail.
 
+\subsection{Reading Notes}
+
+\Gls{lms} are being widely used. Moodle is very famous.
+
+\Gls{lms} store a lot of data regarding student profiles, their grades, when
+they login, etc. Analysing this data is hard to do by hand. Data Mining
+techniques may be used.
+
+Data Mining has been applied to a variety of problems in e-learning. Like:
+
+\begin{itemize}
+    \item Dealing with assessment of students' learning performance.
+    \item Providing course adaptations and learning recommendations.
+    \item etc. See more at 17
+\end{itemize}
+
+The objective of this paper is to classify students with similar final marks
+into different groups depending on the activities carried out in a web-based
+course.
+
+Data from Cordoba University is used in 7 Moodle engineering courses. The data
+comes from three online activities:
+
+\begin{itemize}
+    \item Quizzes
+    \item Assignments
+    \item Forums
+\end{itemize}
+
+The data was divided into 10 pairs of training and test data files for
+stratified 10-fold cross-validation (reference 81).
+
+The first experiment consists on executing every algorithm with three datasets
+and getting the geometric mean:
+
+\begin{itemize}
+    \item First dataset. All 438 instances/students with all features.
+    \item Second dataset. Filtered instances where students didn't complete
+        every Moodle activity. Got 135 instances.
+    \item Third dataset. All instance but only with the 4 features which were
+        selected using a few methods.
+\end{itemize}
+
+The second experiment is basically the same as the first, but the data ha two
+pre-processing tasks applied to it: discretization and rebalancing.
+
+Paper also gives some background on data mining. Also talks about Moodle Data
+Mining Tool.
+
 \subsection{Comment}
 
 This paper mines web logs of~\gls{lms} in order to take meaning from them. Like
