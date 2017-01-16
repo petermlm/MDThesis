@@ -287,3 +287,71 @@ Find more about Moodle Data Mining Tool and find more work done by these
 authors.
 
 Look further into using decision trees to mine Moodle data.
+
+% =============================================================================
+\section{\texttt{IND\_010} - Using Educational Data Mining Methods to Study the
+Impact of Virtual Classroom in E-Learning}
+
+Paper is~\cite{ind_010}. I haven't seen this paper has a reference of the
+previous ones. But found it on Google Scholar while searching for Moodle Data
+Mining. The techniques used in this paper are similar to~\cite{ind_008,
+ind_003}.
+
+\subsection{Reading Notes}
+
+The paper starts by talking about difficulties in e-learning environments. Such
+as students feeling lonely and unsupported. They also talk about how web logs
+need to be mined so meaningful information is taken from them.
+
+This study is done to web logs. They have 824 students in 11 courses, but claim
+that the number is superior. The study is done only to students who are remote.
+They say that other studies such as 8, 13, and 14 e-learning platforms was used
+to facilitate teacher-student interactions.
+
+They start by preprocessing a group of features of students. Then they do
+feature ranking using a few algorithms and build a decision tree based on the
+Gain Ratio metric.
+
+The decision tree predicts students grades based on their features.
+
+\subsection{Comment}
+
+This paper is another~\gls{dm} analysis made to Moodle. Like in previous works,
+such as~\cite{ind_008, ind_003}, this paper goes through the process of
+pre-processing Moodle data from e-learning courses, applying~\gls{dm}
+techniques, and interpreting the results. The objectives of this paper are to
+predict student grades given their usage of Moodle in an e-learning
+environment.
+
+The origins of the data are shown to come from 824 students in 11 courses. The
+features of the data come from logs which say when a student logged in, when it
+asked a question, and so on. The data mining process consists on applying a few
+feature selection algorithms, such as gain ratio, $ \chi^2 $, SVN, and others,
+to rank the features. In the end, a decision tree is built from the ranking
+using gain ratio.
+
+The built tree is able to predict the grades of a student given their features.
+The first two levels of a built tree are shown and some interpretation is
+given. For example, assertions are made about students that participate less
+then 11 times in virtual classrooms which will probably fail the exams.
+
+Although the results are presented and seem logical, the probabilities given
+for each assertion of the decision tree are made so with small probabilities.
+The previous example, for instance, only has 55\% probability. Some ways to
+evaluate the accuracy of the built tree should be taken.
+
+The methods listed in this paper are well explained and the results are clear.
+Building decisions trees to predict students grades is a sound objective and a
+common one in~\gls{edm}. The only negative points are the fact that the built
+tree is not evaluated.
+
+\subsection{Relevant Points}
+
+This paper is very relevant because it displays similar techniques
+to~\cite{ind_008, ind_003}. The techniques for pre-processing and mining, the
+datasets, and the conclusions are all very similar and will doubtless be very
+important as a reference in future work.
+
+\subsection{Work From This Paper}
+
+References 18, 16, 5, 8, are 9 worth looking into.
