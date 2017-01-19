@@ -1,5 +1,5 @@
 OUTDIR=bin
-DOC=comments
+DOC=research_notes
 
 OUTPDF=$(OUTDIR)/$(DOC).pdf
 PDF=$(DOC).pdf
