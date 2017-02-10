@@ -22,6 +22,9 @@
 
 \setcounter{tocdepth}{1}
 
+% Changes font to.. sans serif... Why Is This A Renew... I don't give a f
+\renewcommand{\familydefault}{\sfdefault}
+
 % =============================================================================
 % Preamble inputs
 
@@ -36,10 +39,14 @@
 \maketitle
 
 \tableofcontents
+\listoffigures
+\listoftables
 
 \input{introduction}
 \input{papers}
 \input{journals}
+\input{data}
+\input{exps}
 
 \printglossary
 

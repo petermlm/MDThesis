@@ -1,0 +1,614 @@
+\chapter{Data}
+
+% =============================================================================
+\section{Data Exploration}
+
+To begin with, we explore what was initially provided in terms of data. The
+repository is a spreadsheet book with 12 sheets. The sheets contain raw data
+and some calculated fields.
+
+In order to explore the data using the bash tools (cut, grep, etc) and tools
+like Python with Pandas, they were exported to a CSV format. Some
+transformations may be applied to these files in other to clean useless points
+or make the data easier to process.
+
+To begin, each sheet is analysed individually. Conclusions on each list are
+registered in the fist section of this chapter.
+
+\subsection{Sheet 1 - \texttt{UCs\_SIIUE\_Moodle.csv}}
+
+This sheet lists a few courses (referred to in their native name as
+\textit{Unidades Curriculares}). Some courses have a Moodle page while others
+do not.
+
+The sheets contain four non blank columns. The first and second column are a
+list of courses represented has their Course Id and Moodle Id, which is
+different.
+
+The third column is just a calculated copy of the first. It doesn't add
+anything and it might have been a loose processing step at some point.
+
+The fourth column contains a list of course with no Moodle and therefore no
+Moodle Id.
+
+Only the following columns are relevant:
+
+\begin{itemize}
+    \item \texttt{Cod UC} - Course's code
+    \item \texttt{No moodle} - Course's code in the Moodle
+\end{itemize}
+
+\subsection{Sheet 2 - \texttt{complete\_rate.csv}}
+
+This sheet contain a listing of the completion rate of each course. The list
+has tree columns. A column for course id in the Moodle (\texttt{c\_moodleid}),
+the number of students in that course (\texttt{n\_students}), and the
+completion rate of those courses (\texttt{complete\_rate}).
+
+So a course with 100 students having a completion rate of 75\% means that 75
+students actually completed that course.
+
+\subsection{Sheet 3 - \texttt{completed.csv}}
+
+Contains a listing of which student was approved at which course. The sheet has
+three columns. The first column is the course id of the Moodle
+(\texttt{c\_moodleid}), the second is the user id of the Moodle
+(\texttt{u\_moodleid}), and the third is a column (\texttt{completed}) which
+has the value 1 if the student completed that course, or 0 if not.
+
+The user id may be assigned to a professor, but in this sheet every user id is
+of a student.
+
+\subsection{Sheet 4 - \texttt{Notas UCS SIIUE.csv}}
+
+There is a lot of information in this sheet.
+
+\TODO{Explore}
+
+\subsection{Sheet 5 - \texttt{Profile}}
+
+This sheet contains some analysis made to the data. To begin with, there are
+the following columns:
+
+\begin{itemize}
+    \item \texttt{name\_c} - Name of the course
+    \item \texttt{name\_s} - Name of the student
+    \item \texttt{id\_c} - Id of the course
+    \item \texttt{n\_resrc\_c} - Number of resources in the course
+    \item \texttt{n\_actv\_c} - Number of activities in the course
+    \item \texttt{id\_s} - Id of the student
+    \item \texttt{n\_cons\_s} - \TODO{}
+    \item \texttt{n\_subm\_s} - \TODO{}
+    \item \texttt{result\_s} - Results of that student in that course
+\end{itemize}
+
+In order for a student to get approved, some creteria must be followed.
+
+\subsection{Sheet 6 - \texttt{ResultadosUCMoodle}}
+
+This sheet contains a lot of information about the courses. To begin with, we
+get a relation between the three ways of identifying a course in the data. A
+course is identified by the Course's Code (\texttt{Cod Siiue}), Course's Code
+in the Moodle (\texttt{Cod Moodle}), or by a course id (\texttt{course}). The
+course id is an integer number, while the codes contain information about the
+department.
+
+The department (\texttt{Dep}) is calculate from the course's code (\texttt{Cod
+Siiue}) by taking the first three characters from that course. So a course with
+code \texttt{INF7185\_1} will be from the department \texttt{INF}.
+
+The sheet presents the first and last register of an activity in the Moodle,
+and also the interval in days from the first activity to the last. The fields
+are \texttt{min}, \texttt{max}, and \texttt{int}.
+
+\TODO{Fields in between}
+
+The sheet finally specifies the number of students who enrolled in a course and
+the number of students who were approved on that course.
+
+\begin{itemize}
+    \item \texttt{course} - Course's id
+    \item \texttt{Cod Moodle} - Course's Code in the Moodle
+    \item \texttt{Cod Siiue} - Course's Code
+    \item \texttt{min} - First activity of course
+    \item \texttt{max} - Last activity of course
+    \item \texttt{int} - Interval between first and last activity of course
+    \item \texttt{actsub}
+    \item \texttt{actcons}
+    \item \texttt{nactsubd}
+    \item \texttt{consal}
+    \item \texttt{consdoc}
+    \item \texttt{subal}
+    \item \texttt{subdoc}
+    \item \texttt{nalu}
+    \item \texttt{ndoc}
+    \item \texttt{InscSIIUE} - Number of students who enrolled
+    \item \texttt{Aprov} - Number of students who got approved
+    \item \texttt{Dep} - Department of the course
+\end{itemize}
+
+\subsection{Sheet 7 - \texttt{Correlação}}
+
+This is a sheet that implements the calculation of correlation between the
+variables of the previous sheet \texttt{ResultadosUCMoodle}. The data it self
+is coppied from the previous sheet and a new table to the right of the first
+table is added with the correlation itself.
+
+The data in here doesn't need to be preprocessed to a new sheet, but the notion
+of correlation, which can be calculated using alternative methods, may be used
+later.
+
+\subsection{Sheet 8 - \texttt{Alunos SIIUE E-L}}
+
+There are a few issues with this sheet. First of all, the sheet appears to have
+two tables which are not really related, maybe? Anyway. The first table has a
+student number, his name, and what appears to be a count of it's enrollments.
+It also has a calculated fields stating his/her's first and last name and
+another column with the students number which is a calculated copy of the
+first.
+
+The second table has Moodle usernames. A first and last name, another count
+(which I assume is a count of enrollments but I can't be sure because the field
+simply states ``count'').
+
+Oh! The second number in the first table is used for a calculated value in the
+second table.
+
+So the last three columns of the second table are all calculated values. The
+first appears to fetch a number from the first. It goes like this. If the name
+of the student in the second table is equal to the first and last name of the
+first, then fetch that number. Else, it is an error.
+
+Next, we get a value, is the username in the Moodle contains a number. If not,
+we get an error.
+
+Lastly. We try to get the first calculated number (the fourth column of the
+second table) if it exists. If it doesn't, we try to get the second calculated
+value (the fifth column of the second table). If that doesn't exist too, we
+write 0.
+
+Up to this point I'm not sure what the purpose of this sheet is. I believe it
+gives me a relation between a student in SIIUE and in Moodle, but I have
+serious doubts about the correctiveness of that relation.
+
+After examining the sheet a second, I now believe that the first table has a
+listing o students and their SIIUE internal id or student number. The second
+table simply has usernames of Moodle. So the second table has students and
+professors, while the first one has students only.
+
+About the counts. The count of the first table is indeed a number of courses
+where the students is enrolled in. The count of the second table is the total
+number of log entries which is a copy (a copy-paste values only copy) of the
+information in the \texttt{AlunosMoodle} sheet.
+
+I don't think this sheet alone is much useful. But it did give insight on how
+this data repository is organized.
+
+\subsection{Sheet 9 - \texttt{AlunosMoodle}}
+
+These are the actual logs of the accesses to Moodle. This is a big table that
+contains the following fields:
+
+\begin{itemize}
+    \item \texttt{c\_id} - Course ID in the Moodle
+    \item \texttt{c\_cod} - Course ID
+    \item \texttt{c\_role} - Role of the user
+    \item \texttt{c\_user} - User's code
+    \item \texttt{c\_nome} - User's name
+    \item \texttt{c\_uid} - User's ID in the Moodle
+    \item \texttt{crud} - \gls{crud} activity
+    \item \texttt{semana} - Number of the week in which the events happened
+    \item \texttt{n} - Number of time the event happened on that week
+    \item \texttt{numAluno} - Number of the student, which is calculated from
+        elsewhere, even when the user is not a student
+    \item \texttt{SNot} - If the student was approved, or failed, or something
+        else
+\end{itemize}
+
+Basically, we get a list of entries specifying activities in Moodle. Each entry
+contains information on the course, the user, and the activity itself.
+
+For the course information we have course id and course code (Moodle code).
+
+For user, we get the user's role, username, actual name of user, and some
+number.
+
+Finally, we get what kind of CRUD activity it was (if create activity, delete,
+etc), the week in which said activity occurred, and number of times the
+activity occurred in that week. The activities are aggregated by type and week.
+
+This table then contains the fields \texttt{numAluno} and \texttt{SNot}. These
+are calculate fields. The first attempts to take a student's number from the
+username, if possible. The second calculates if that particular student was
+approved in the course for which the entries refers to. Both of these fields
+are useless.
+
+There is a second table. This table gives a username, actual name, and total
+number of activities of that user in the log. It is useful, but it should be in
+it's own sheet. The fields of that table have no name, but in order to be
+consistent with the table on the left, we get:
+
+\begin{itemize}
+    \item \texttt{c\_user}
+    \item \texttt{c\_nome}
+    \item \texttt{count}
+\end{itemize}
+
+\subsection{Sheet 10 - \texttt{CalculosAlunos}}
+
+I'm not sure what his sheet is. It has a few values copied from other tables,
+has ``\textit{Calculos}'', on the name, but it doesn't really calculate
+anything. All the values are literal.
+
+It may be discarded.
+
+\subsection{Sheet 11 - \texttt{export\_weekly}}
+
+This table seems to have a line for each pain of course and user ids. It then
+has a few columns of log activities. For each intersection of pair of course
+and user ids we get a 1 or 0 for one of the columns. Presumably, we get a true,
+that is, 1, if a user A made that activity in course B in that week.
+
+This isn't really useful because the same can be easily calculated using other
+tools when needed.
+
+\subsection{Sheet 12 - \texttt{export\_activity}}
+
+This table seems to have a few more calculations, but I don't fully understand
+them. It has at least a calculation of a standard deviation, and little else.
+
+Again, this isn't really useful because the same can be easily calculated using
+other tools when needed.
+
+% =============================================================================
+\section{Objects, Entities, and Features}
+
+After a first analysis of the data, the objects in the data are identified.
+These objects are the courses, students, results, etc. Data mining tasks are
+applied over these objects which are described by their features.
+
+This section specifies objects in this data repository and states their
+features.
+
+\subsection{Courses}
+
+In the data, a course is identified by one of three unique ids. They are, the
+Course ID, SIIUE's Course's Code, and Moodle Course's Code. The Course id is
+simply a unique positive integer number which is probably assigned as an
+incremental value when the courses where created in some database.
+
+The two course's code come from their register in the SIIUE system and in the
+Moodle system. For the most part they are the same, when they are not the same
+the differences are minimal.
+
+Table~\ref{tab:course_code_example} shows an example of the three ids. Notice how \texttt{CourseCodeMoodle} is either the same as \texttt{CourseCodeSiiue} or has just minimal differences (in this case there is an underscore follwed by a number).
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l l}
+\texttt{CourseId} & \texttt{CourseCodeSiiue} & \texttt{CourseCodeMoodle} \\ \hline
+        496       & \texttt{ARC10548}        & \texttt{ARC10548}         \\
+        1392      & \texttt{GES7182}         & \texttt{GES7182\_2}       \\
+        79        & \texttt{GES7182}         & \texttt{GES7182\_4}       \\
+        1535      & \texttt{GES7182}         & \texttt{GES7182\_3}       \\
+    \end{tabular}
+
+    \caption
+        [Example of course id and codes in the \texttt{CoursesGeneral} Dataset]
+        {Example of course id and codes in the \texttt{CoursesGeneral} Dataset.}
+
+    \label{tab:course_code_example}
+\end{table}
+
+Each course has the features listed in
+table~\ref{tab:courses_general_features}. The table displayed the features and
+their data type. Each course has a name, a department to which they belong, a
+cycle (if Master's Degree, Phd, etc), and a degree. These features are all
+strings.
+
+A course also has a regime, a semester, a season, and a type. These features
+are enumerated types because they have a limited domain. For example, the
+semester may either be ``\textit{Par}'' or ``\textit{Ímpar}'' (Even or Odd),
+the season may be ``\textit{Normal}'' or ``\textit{Special}''.
+
+Finally, the credits are the only field which is a number.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature             & Data Type  \\ \hline
+        \texttt{Department} & String     \\
+        \texttt{Cycle}      & String     \\
+        \texttt{CourseName} & String     \\
+        \texttt{Regime}     & Enumerated \\
+        \texttt{Credits}    & Number     \\
+        \texttt{Degree}     & String     \\
+        \texttt{Semestre}   & Enumerated \\
+        \texttt{Season}     & Enumerated \\
+        \texttt{Type}       & Enumerated \\
+    \end{tabular}
+
+    \caption
+        [Data types of features of Courses]
+        {Data types of features of Courses as they appear in the
+        \texttt{CoursesGeneral} dataset.}
+
+    \label{tab:courses_general_features}
+\end{table}
+
+Some courses have no Moodle. They are therefore useless for our these
+experiments.
+
+Some statistics are taken from the courses data as shown in
+table~\ref{tab:courses_stats}.
+
+The domain of the enumerated fields are listed in table~\ref{tab:courses_enum}.
+The field ``type'' only has the domain ``\textit{Normal}'', so it is a field
+which is useless for further analysis. The field ``Semester'' has a missing
+values. In the actual data there is only one course which doesn't have a value
+for this field.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | r |}
+        \hline
+        Number of Courses     & 77 \\ \hline
+        Number of Departments & 9  \\ \hline
+        Number of Degrees     & 11 \\ \hline
+    \end{tabular}
+
+    \caption
+        [Statistics on the Courses]
+        {Statistics on the Courses.}
+
+    \label{tab:courses_stats}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l |}
+        \hline
+        Regime   & \{ A, O, S \}                                    \\ \hline
+        Semester & \{ ``\textit{Par}'', ``\textit{Ímpar}'', n/a \}  \\ \hline
+        Season   & \{ ``\textit{Normal}'', ``\textit{Especial}'' \} \\ \hline
+        Type     & \{ ``\textit{Normal}'' \}                        \\ \hline
+    \end{tabular}
+
+    \caption
+        [Values for enumerated types on courses]
+        {Values for enumerated types on courses.}
+
+    \label{tab:courses_enum}
+\end{table}
+
+\subsection{Moodle Users - Students, and Professors}
+
+The logs contain the actions of the Moodle users which role can be of a
+professors or a students. The data contains features for Students but no
+features for professors. Table~\ref{tab:students_features}, contains all the
+features of students.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                   & Data Type  \\ \hline
+        \textit{StudentsId}       & Number     \\
+        \textit{StudentsNumber}   & Number     \\
+        \textit{MoodleUsername}   & String     \\
+        \textit{Name}             & String     \\
+        \textit{EnrollementCount} & Number     \\
+        \textit{StudentType}      & Enumerated \\
+    \end{tabular}
+
+    \caption
+        [Student features]
+        {Student features.}
+
+    \label{tab:students_features}
+\end{table}
+
+From table~\ref{tab:students_features} it is observable that a student may be
+identified by it's internal Moodle Student ID, or by it's student number as
+given by SIIUE. Some students in this data repository do not have a
+\textit{StudentsNumber} value, but those students also don't have any activity
+in the logs.
+
+The Students Number has a leading character indicating the cycle of that
+student. For example, a Master's Degree student has a number of the form
+\textit{m12345}, starting with an \textit{m}, and a PhD student has a number
+\textit{p12345} starting with a \textit{p}. In the data, the values for
+\textit{StudentsNumber} are typed as number and only contain the number part.
+But the field \textit{MoodleUsername} has the complete student's number.
+
+The values for the \textit{StudentType} field are:
+
+\begin{itemize}
+    \item \textit{Normal}
+    \item \textit{Interno}
+\end{itemize}
+
+Professors have only the features listed in table~\ref{tab:professor_features}.
+The data contains a field called \textit{Role} which states if that Moodle user
+is a professor or a student. Supposedly, if the user is a professor the role
+has a value of 5. If it is a student, it has a value of 3. However, we see
+entries for professors with a role value of 3 and vice versa. It is unknown if
+this role actually state the if a user is a professor or student or something
+else.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                 & Data Type \\ \hline
+        \textit{MoodleUsername} & String    \\
+        \textit{Name}           & String    \\
+    \end{tabular}
+
+    \caption
+        [Professor features]
+        {Professor features.}
+
+    \label{tab:professor_features}
+\end{table}
+
+Table~\ref{tab:moodle_users_stats} shows some stats regarding Moodle users.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | r |}
+        \hline
+        Number of Students   & 145 \\ \hline
+        Number of Professors & 87  \\ \hline
+        Total                & 232 \\ \hline
+    \end{tabular}
+
+    \caption
+        [Professor features]
+        {Professor features.}
+
+    \label{tab:moodle_users_stats}
+\end{table}
+
+\subsection{Results}
+
+The data repository contains the results of students in the courses where they
+participated. A listing of grades students had in particular courses is
+available. Each object of that dataset, referred to as a Result, has the
+features listing in table~\ref{tab:results_fetures}. The values for the
+enumerated types are in table~\ref{tab:results_fetures_enum}.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                  & Data Type  \\ \hline
+        \textit{CourseCodeSiiue} & String     \\
+        \textit{StudentsNumber}  & Number     \\
+        \textit{Grade}           & Number     \\
+        \textit{Results}         & Enumerated \\
+        \textit{FinalResult}     & Enumerated \\
+    \end{tabular}
+
+    \caption
+        [Results features]
+        {Results features.}
+
+    \label{tab:results_fetures}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l |}
+        \hline
+        Results & \{ \textit{Anulado},
+                     \textit{Aprovado},
+                     \textit{Desistiu},
+                     \textit{Faltou},
+                     \textit{Reprovado}
+                  \} \\ \hline
+        FinalResult & \{ N, S, n/a \}  \\ \hline
+    \end{tabular}
+
+    \caption
+        [Values for enumerated types on results]
+        {Values for enumerated types on results.}
+
+    \label{tab:courses_enum}
+\end{table}
+
+A student has a grade if he was approved (Results field has a value of
+\textit{Aprovado}). The value for \textit{FinalResult} is \textit{S} if and
+only if the value of \textit{Results} is \textit{Aprovado}. Else, it will be
+\textit{N}.
+
+The fields \textit{Results} and \textit{FinalResult} are always empty together
+and in that cases there is never any grade.
+
+Table~\ref{tab:results_stats} shows some statistics on the results data.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | r |}
+        \hline
+        Number of results           & 716 \\ \hline
+        Number of non-empty results & 57  \\ \hline
+        Number of approved students & 334 \\ \hline
+    \end{tabular}
+
+    \caption
+        [Statistics on the Results]
+        {Statistics on the Results.}
+
+    \label{tab:results_stats}
+\end{table}
+
+\subsection{Moodle Logs}
+
+Moodle logs contain the actual activities of Moodle users. Each log entry
+states a user who performed a~\gls{crud} action in a course page. The actions
+are aggregated per week. Table~\ref{tab:moodle_logs_features} shows the
+features of the Moodle logs, and table~\ref{tab:moodle_logs_enum} shows the
+values of the enumerated fields. There are a total of 25207 entries in the
+Logs.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                            & Data Type  \\ \hline
+        \textit{CourseCodeMoodle}          & String     \\
+        \textit{Role}                      & Enumerated \\
+        \textit{MoodleUsername}            & String     \\
+        \textit{StudentsId}                & Number     \\
+        \textit{CRUD}                      & Enumerated \\
+        \textit{Week}                      & Number     \\
+        \textit{NumberOfActivitiesPerWeek} & Number     \\
+        \textit{StudentsNumber}            & Number     \\
+    \end{tabular}
+
+    \caption
+        [Moode Logs features]
+        {Moode Logs features.}
+
+    \label{tab:moodle_logs_features}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l |}
+        \hline
+        Role & \{ 3, 5 \} \\ \hline
+        CRUD & \{ C, R, U, D \}  \\ \hline
+    \end{tabular}
+
+    \caption
+        [Values for enumerated types on Moodle Logs]
+        {Values for enumerated types on Moodle Logs.}
+
+    \label{tab:moodle_logs_enum}
+\end{table}
+
+% =============================================================================
+\section{Preprocessed Datasets}
+
+From the original data we make an initial pre processing in order to have a
+consistent repository of datasets ready for further analysis. The pre-processed
+datasets have consistent names and fields.
+
+% CoursesGeneral.csv
+% CoursesEntriesOverview.csv
+% MoodleUsers.csv
+% Students.csv
+% CoursesStudents.csv
+% Results.csv
+% MoodleLogs.csv
+% CoursesNoMoodle.csv
