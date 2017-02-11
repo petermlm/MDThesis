@@ -9,11 +9,14 @@ and some calculated fields.
 
 In order to explore the data using the bash tools (cut, grep, etc) and tools
 like Python with Pandas, they were exported to a CSV format. Some
-transformations may be applied to these files in other to clean useless points
-or make the data easier to process.
+transformations may be applied to these files in other to clean useless data
+points or make the data easier to process.
 
 To begin, each sheet is analysed individually. Conclusions on each list are
-registered in the fist section of this chapter.
+registered in the fist section of this chapter. After analysing the original
+data, the second section of the chapter asserts which entities and objects are
+present in this data. Finally, the third section lists the datasets which
+represent those entities and objects.
 
 \subsection{Sheet 1 - \texttt{UCs\_SIIUE\_Moodle.csv}}
 
@@ -61,11 +64,19 @@ of a student.
 
 \subsection{Sheet 4 - \texttt{Notas UCS SIIUE.csv}}
 
-There is a lot of information in this sheet.
+There is a lot of information in this sheet. Basically, this sheet contains a
+big list. That list has a course, a student, and the student's results on that
+course. The results contain the grade, if available, if the student was
+approved or not, and if not, why? Did he failed the evaluations or simply
+missed them?
 
-\TODO{Explore}
+Some statistics are calculated in a table to the right of this sheet. Those
+calculated values are useful, but should be recalculated elsewhere in a later
+time if necessary.
 
 \subsection{Sheet 5 - \texttt{Profile}}
+
+\TODO{Some information is missing for this sheet}
 
 This sheet contains some analysis made to the data. To begin with, there are
 the following columns:
@@ -82,9 +93,12 @@ the following columns:
     \item \texttt{result\_s} - Results of that student in that course
 \end{itemize}
 
-In order for a student to get approved, some creteria must be followed.
+In order for a student to get approved, some criteria must be followed. That
+criteria is described in the sheet itself.
 
 \subsection{Sheet 6 - \texttt{ResultadosUCMoodle}}
+
+\TODO{Some information is missing for this sheet}
 
 This sheet contains a lot of information about the courses. To begin with, we
 get a relation between the three ways of identifying a course in the data. A
