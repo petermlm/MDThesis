@@ -1,7 +1,2 @@
-*.pdf
-bin
-
 *.swp
 Session.vim
-
-notes
