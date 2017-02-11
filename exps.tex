@@ -1,24 +1,69 @@
-\chapter{Experiments}
+\chapter{Experiments and Statistics}
 
+% =============================================================================
 \section{EXP\_001 - Plotting Activity of Students over the Semester}
 
-\subsection{Objective}
-
 To look for patterns in the usage of Moodle we look into plotting the activity
-of students over the courses over a semester. There are many ways of doing so.
+of students over the courses over a semester. The six courses with the greatest
+number of activities are chosen and for each of them two plots are made.
 
-One idea is to plot the average number of activities of students on one course.
-Over a semester, several students access a specific course where they read and
-write forum messages, deliver assignments, etc. For the various courses, we
-plot the average of the total number of activities, and the average number of
-each individual~\gls{crud} activities (\textbf{C}reate, \textbf{R}ead, etc).
+One plot displays the overall number of~\gls{crud} activities over the semester
+and the number of \textbf{C}reate activities, \textbf{R}ead activities, etc.
+Figure~\ref{fig:exp_001_all} show these plots for two courses. As it can be
+seen, the number of Read activities is far greater then the others, which is to
+be expected since to do any other activity, at least a Read activity has to
+take place. For example, a student needs to open the Moodle page, and therefore
+do a Read, to deliver a project, and therefore do a Create.
 
-\subsection{Procedure}
+It is hypothesis that the number is also greater because students will usually
+just read new messages in the Moodle, or consult new materials, without doing
+any other activity.
 
-\subsection{Conclusions}
+The second plot made to each course is similar, but only the Create, Update,
+and Delete activities are plotted. Figure~\ref{fig:exp_001_cud} show two
+examples these plots. Notice that the number of creates is not always greater
+then the number of updates, and vice-versa. But the number of deletes is always
+below creates and updates. This concludes that the delete activity is simply
+not that common.
 
-Some graphs show distinct peaks. What are they fore? Is it for a new
-assignment, or just before an evaluation?
+\begin{figure}[h!]
+    \centering
 
-Some courses have a greater number of peaks them others. Do these courses have
-more students, more assignments, better grades?
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/fig_0_CTE-UMCED-2_all}
+        \label{subfig:exp_001_0_all}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/fig_3_INF7194_2_all}
+        \label{subfig:exp_001_3_all}
+    \end{subfigure}
+
+    \caption
+        [Exp 001 plots for all activities]
+        {Exp 001 plots for all activities.}
+
+    \label{fig:exp_001_all}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/fig_0_CTE-UMCED-2_cud}
+        \label{subfig:exp_001_0_cud}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/fig_3_INF7194_2_cud}
+        \label{subfig:exp_001_3_cud}
+    \end{subfigure}
+
+    \caption
+        [Exp 001 plots for C, U, and D activities]
+        {Exp 001 plots for C, U, and D activities.}
+
+    \label{fig:exp_001_cud}
+\end{figure}
