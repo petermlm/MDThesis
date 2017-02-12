@@ -3,7 +3,7 @@
 # =============================================================================
 # Plot activities of students over the semester.
 #
-# This experiment aims at making different plots in order to visualize the #
+# This statistic aims at making different plots in order to visualize the
 # activity of students over the semester. He pick the six courses with the most
 # activities registered in the logs. We then plot those activities over the
 # whole semester and see the relation between the overall number of activities,
@@ -24,7 +24,7 @@ import data
 import util
 
 
-output_dir = "exp_001_results"
+output_dir = "stat_004_results"
 
 
 def outputFileName(index, courses, plot_type):
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     # Load data
     df = data.load(data.MoodleLogs)
 
-    # Select only useful columns for this experience
+    # Select only useful columns for this statistic
     df_redux = df[[
         "CourseCodeMoodle",
         "CRUD",
