@@ -5,3 +5,7 @@ def makeDir(dir_name):
         os.mkdir(dir_name)
     except FileExistsError:
         pass
+
+
+def outputDirName(num):
+    return "stat_%03d_results" % (num)
