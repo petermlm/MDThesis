@@ -24,7 +24,7 @@ import data
 import util
 
 
-output_dir = "stat_004_results"
+output_dir = util.outputDirName(4)
 
 
 def outputFileName(index, courses, plot_type):

@@ -15,8 +15,7 @@ import data
 import util
 
 
-output_dir = "stat_001_results"
-
+output_dir = util.outputDirName(1)
 
 if __name__ == "__main__":
     df = data.load(data.CoursesGeneral)
