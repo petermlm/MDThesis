@@ -21,6 +21,7 @@ import pandas
 from matplotlib import pyplot
 
 import data
+import util
 
 
 output_dir = "exp_001_results"
@@ -120,10 +121,7 @@ if __name__ == "__main__":
     }
 
     # Create the directory for the results if it doesn't exist
-    try:
-        os.mkdir(output_dir)
-    except FileExistsError:
-        pass
+    util.makeDir(output_dir)
 
     # Get week number and activities number of a specific course
     for index, course in enumerate(common_courses.index.tolist()):
