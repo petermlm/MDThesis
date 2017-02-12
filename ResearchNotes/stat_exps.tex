@@ -14,6 +14,75 @@ table~\ref{tab:courses_credits}.
 Gets domain of the fields of courses. Relevant results are listed in some
 tables in section~\ref{sec:data_courses}.
 
+\subsection{\texttt{STAT\_003} - Number of Courses per Degree}
+
+A list of courses per degree is computed. This gives an idea of how many
+courses there are in a given degree. A list of courses per degree and semester
+is also given to give an idea of how the courses are distributed across the two
+semesters.
+
+Tables~\ref{tab:stat_003_res_1} and~\ref{tab:stat_003_res_2} show these results.
+
+It should be noticeable that some degrees only have courses in one semester.
+The names of the degrees are not available, only their codes. But it is
+noticeable that the degree with the greater number of courses is
+\texttt{B\_M\_REST\_EINF\_E}, which appears to be an Informatics Master's
+Degree.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l r}
+        Degree                             & CourseCodeMoodle \\ \hline
+        \texttt{B\_M\_EHEA (478)}          & 7                \\
+        \texttt{B\_M\_REST\_EINF\_E (578)} & 28               \\
+        \texttt{B\_M\_REST\_TET (457)}     & 7                \\
+        \texttt{B\_PD\_M\_E (580)}         & 8                \\
+        \texttt{CCDND\_CPM (344)}          & 1                \\
+        \texttt{FC\_CVP\_FDOC (513)}       & 2                \\
+        \texttt{FC\_CVP\_UAM (514)}        & 3                \\
+        \texttt{FC\_EDM (564)}             & 1                \\
+        \texttt{PG\_B\_AE (438)}           & 10               \\
+        \texttt{PG\_B\_EGNEG (554)}        & 10               \\
+    \end{tabular}
+
+    \caption
+        [Number of Courses per Degree]
+        {Number of Courses per Degree.}
+
+    \label{tab:stat_003_res_1}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l r}
+        Degree                             & Semester       & CourseCodeMoodle \\ \hline
+        \texttt{B\_M\_EHEA (478)}          & \textit{Par}   & 3                \\
+                                           & \textit{Ímpar} & 4                \\
+        \texttt{B\_M\_REST\_EINF\_E (578)} & \textit{Par}   & 14               \\
+                                           & \textit{Ímpar} & 14               \\
+        \texttt{B\_M\_REST\_TET (457)}     & \textit{Par}   & 2                \\
+                                           & \textit{Ímpar} & 5                \\
+        \texttt{B\_PD\_M\_E (580)}         & \textit{Par}   & 3                \\
+                                           & \textit{Ímpar} & 5                \\
+        \texttt{PG\_B\_EGNEG (554)}        & \textit{Par}   & 4                \\
+                                           & \textit{Ímpar} & 5                \\
+        \texttt{PG\_B\_AE (438)}           & \textit{Par}   & 5                \\
+                                           & \textit{Ímpar} & 5                \\
+        \texttt{FC\_EDM (564)}             & \textit{Par}   & 1                \\
+        \texttt{CCDND\_CPM (344)}          & \textit{Ímpar} & 1                \\
+        \texttt{FC\_CVP\_FDOC (513)}       & \textit{Ímpar} & 2                \\
+        \texttt{FC\_CVP\_UAM (514)}        & \textit{Ímpar} & 3                \\
+    \end{tabular}
+
+    \caption
+        [Number of Courses per Degree and Semester]
+        {Number of Courses per Degree and Semester.}
+
+    \label{tab:stat_003_res_2}
+\end{table}
+
 % =============================================================================
 \section{Experiments}
 
