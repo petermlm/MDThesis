@@ -151,5 +151,64 @@ not that common.
     \label{fig:stat_004_cud}
 \end{figure}
 
+\subsection{\texttt{STAT\_005} - Total Number of Activities vs Mean of
+Activities per Week}
+
+This analysis attempts to understand if the activities of courses remain the
+same as the semester goes on. So the mean of the activities per course and week
+is plotted, as it is displayed in figure~\ref{fig:stat_005}. The total number
+of activities is also plotted in figure~\ref{fig:stat_005}.
+
+It is visible that, although the number of activities drops as the semester
+goes on, the mean number of activities stayed relatively the same despite
+varying a lot. This is due to the fact that some courses stop being active as
+the semester goes on, as it will be shown in section~\ref{sec:stat_006}, but
+despite that, the courses that do remain active don't register a drop of
+activity as time goes on.
+
+\begin{figure}[h!]
+    \centering
+
+    \includegraphics[width=\linewidth]{../src/stat_005_results/plot}
+
+    \caption
+        [Total Number of Activities vs Mean of Activities per Week]
+        {Total Number of Activities vs Mean of Activities per Week.}
+
+    \label{fig:stat_005}
+\end{figure}
+
+\subsection{\texttt{STAT\_006} - Number of Active Courses vs Number of
+Activities}
+\label{sec:stat_006}
+
+A correlation is found between the total number of activities and the number of
+active courses per week. The total number of active courses in a week is
+plotted as a bars chart in figure~\ref{fig:stat_006}, along with the total
+number of activities.
+
+An course ceases to be active on a given week where it no longer has activities
+after that week. For example, suppose a course has activities on weeks, 0, 1,
+4, and 8. Then the course is only active until week 8.
+
+The number of activities goes down with the number of active courses, as it
+would be expected. But around weeks 30 to 50, it is visible that the number of
+activities significantly drops from the number of courses, as opposed to the
+first weeks where the numbers are much more similar. This is +probably due to
+students incising lack of interest in courses' activities as the semester goes
+on, which is normal behaviour.
+
+\begin{figure}[h!]
+    \centering
+
+    \includegraphics[width=\linewidth]{../src/stat_006_results/plot}
+
+    \caption
+        [Active Courses vs Number of Activities]
+        {Active Courses vs Number of Activities.}
+
+    \label{fig:stat_006}
+\end{figure}
+
 % =============================================================================
 \section{Experiments}

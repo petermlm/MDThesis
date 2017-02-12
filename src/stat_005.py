@@ -44,12 +44,16 @@ if __name__ == "__main__":
     mean_values = np.array(group_mean["NumberOfActivitiesPerWeek"].values.tolist())
 
     fig, p1 = pyplot.subplots()
-    p1.plot(range(max_weeks+1), sum_values)
+    sum_plot = p1.plot(range(max_weeks+1), sum_values)
     p2 = p1.twinx()
-    p2.plot(range(max_weeks+1), mean_values, color="red")
+    mean_plot = p2.plot(range(max_weeks+1), mean_values, color="red")
 
     util.makeDir(output_dir)
 
     fig.tight_layout()
-    pyplot.title("Active Courses vs Number of Activities")
+    pyplot.title("Total Number of Activities vs Mean of Activities per Week")
+    pyplot.figlegend(
+        (sum_plot[0], mean_plot[0]),
+        ("Total", "Mean"),
+        "upper right")
     pyplot.savefig(os.path.join(output_dir, "plot"))
