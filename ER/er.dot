@@ -1,0 +1,127 @@
+digraph er {
+    node[shape=record];
+    /* rankdir="BT"; */
+
+    students [label = "{
+        <f0> Students |
+        <f1> StudentsId\l
+StudentsNumber\l
+Name\l
+EnrollementCount\l
+MoodleUsername\l
+StudentType\l}"];
+
+    results [label = "{
+        <f0> Results |
+        <f1> CourseCodeSiiue\l
+StudentsNumber\l
+Grade\l
+Results\l
+FinalResult\l}"];
+
+    courses_general [label = "{
+        <f0> CoursesGeneral |
+        <f1> CourseId\l
+CourseCodeSiiue\l
+CourseCodeMoodle\l
+Department\l
+Cycle\l
+CourseName\l
+Regime\l
+Credits\l
+Degree\l
+Semester\l
+Season\l
+Type\l}"];
+
+    courses_entries_overview [label = "{
+        <f0> CoursesEntriesOverview |
+        <f1> CourseId\l
+FirstEntry\l
+LastEntry\l
+EntriesInterval\l
+actsub\l
+actcons\l
+nactsubd\l
+consal\l
+consdoc\l
+subal\l
+subdoc\l
+nalu\l
+ndoc\l}"];
+
+    moodle_users [label = "{
+        <f0> MoodleUsers |
+        <f1> MoodleUsername\l
+Name\l
+Role\l}"];
+
+    courses_students [label = "{
+        <f0> CoursesStudents |
+        <f1> CourseId\l
+NumberOfEnroledStudents\l
+NumberOfApprovedStudents\l
+ApprovalRate\l}"];
+
+    moodle_logs [label = "{
+        <f0> MoodleLogs |
+        <f1> CourseCodeMoodle\l
+Role\l
+MoodleUsername\l
+StudentsId\l
+CRUD\l
+Week\l
+NumberOfActivitiesPerWeek\l
+StudentsNumber\l}"];
+
+    /* {rank=same; students courses_general} */
+
+    students->results [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="N",
+        taillabel="1"];
+
+    results->courses_general [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="1",
+        taillabel="N"];
+
+    courses_general->courses_entries_overview [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="1",
+        taillabel="1"];
+
+    students->moodle_users [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="1",
+        taillabel="1"];
+
+    courses_general->courses_students [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="1",
+        taillabel="1"];
+
+    students->moodle_logs [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="N",
+        taillabel="1"];
+
+    courses_general->moodle_logs [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="N",
+        taillabel="1"];
+}
