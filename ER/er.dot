@@ -63,6 +63,17 @@ NumberOfEnroledStudents\l
 NumberOfApprovedStudents\l
 ApprovalRate\l}"];
 
+    profile [label = "{
+        <f0> Profile |
+        <f1> CourseCodeMoodle\l
+CourseId\l
+StudentsId\l
+NumberOfResources\l
+NumberOfActivities\l
+NumberOfViews\l
+NumberOfSubmissions\l
+Results\l}"];
+
     moodle_logs [label = "{
         <f0> MoodleLogs |
         <f1> CourseCodeMoodle\l
@@ -74,7 +85,10 @@ Week\l
 NumberOfActivitiesPerWeek\l
 StudentsNumber\l}"];
 
-    /* {rank=same; students courses_general} */
+    {rank=same students results moodle_users} ->
+    {rank=same courses_general courses_students}
+    /* {rank=same courses_entries_overview courses_general} -> */
+    /* {rank=same courses_students profile moodle_logs} */
 
     students->results [
         dir="forward",
@@ -109,6 +123,20 @@ StudentsNumber\l}"];
         arrowhead="none",
         arrowtail="normal",
         headlabel="1",
+        taillabel="1"];
+
+    students->profile [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="N",
+        taillabel="1"];
+
+    courses_general->profile [
+        dir="forward",
+        arrowhead="none",
+        arrowtail="normal",
+        headlabel="N",
         taillabel="1"];
 
     students->moodle_logs [
