@@ -76,8 +76,6 @@ time if necessary.
 
 \subsection{Sheet 5 - \texttt{Profile}}
 
-\TODO{Some information is missing for this sheet}
-
 This sheet contains some analysis made to the data. To begin with, there are
 the following columns:
 
@@ -85,11 +83,11 @@ the following columns:
     \item \texttt{name\_c} - Name of the course
     \item \texttt{name\_s} - Name of the student
     \item \texttt{id\_c} - Id of the course
-    \item \texttt{n\_resrc\_c} - Number of resources in the course
-    \item \texttt{n\_actv\_c} - Number of activities in the course
-    \item \texttt{id\_s} - Id of the student
-    \item \texttt{n\_cons\_s} - \TODO{}
-    \item \texttt{n\_subm\_s} - \TODO{}
+    \item \texttt{n\_resrc\_c} - Number of resources (files, urls, etc)
+    \item \texttt{n\_actv\_c} - Number of activities (forums, quizzes, etc)
+    \item \texttt{id\_s} - Student's id
+    \item \texttt{n\_cons\_s} - Number of views
+    \item \texttt{n\_subm\_s} - Number of submissions
     \item \texttt{result\_s} - Results of that student in that course
 \end{itemize}
 
@@ -97,8 +95,6 @@ In order for a student to get approved, some criteria must be followed. That
 criteria is described in the sheet itself.
 
 \subsection{Sheet 6 - \texttt{ResultadosUCMoodle}}
-
-\TODO{Some information is missing for this sheet}
 
 This sheet contains a lot of information about the courses. To begin with, we
 get a relation between the three ways of identifying a course in the data. A
@@ -115,8 +111,6 @@ The sheet presents the first and last register of an activity in the Moodle,
 and also the interval in days from the first activity to the last. The fields
 are \texttt{min}, \texttt{max}, and \texttt{int}.
 
-\TODO{Fields in between}
-
 The sheet finally specifies the number of students who enrolled in a course and
 the number of students who were approved on that course.
 
@@ -127,15 +121,15 @@ the number of students who were approved on that course.
     \item \texttt{min} - First activity of course
     \item \texttt{max} - Last activity of course
     \item \texttt{int} - Interval between first and last activity of course
-    \item \texttt{actsub}
-    \item \texttt{actcons}
-    \item \texttt{nactsubd}
-    \item \texttt{consal}
-    \item \texttt{consdoc}
-    \item \texttt{subal}
-    \item \texttt{subdoc}
-    \item \texttt{nalu}
-    \item \texttt{ndoc}
+    \item \texttt{actsub} - Number of Submission Activities(Same value ad above)
+    \item \texttt{actcons} - Number of views (Same as resources)
+    \item \texttt{nactsubd} - Number of different activities
+    \item \texttt{consal} - Student views
+    \item \texttt{consdoc} - Professor views
+    \item \texttt{subal} - Student submission
+    \item \texttt{subdoc} - Professor submission
+    \item \texttt{nalu} - Number of students in the course
+    \item \texttt{ndoc} - Number of professors in the course
     \item \texttt{InscSIIUE} - Number of students who enrolled
     \item \texttt{Aprov} - Number of students who got approved
     \item \texttt{Dep} - Department of the course
@@ -276,6 +270,7 @@ other tools when needed.
 
 % =============================================================================
 \section{Objects, Entities, and Features}
+\label{sec:objs_ents_feat}
 
 After a first analysis of the data, the objects in the data are identified.
 These objects are the courses, students, results, etc. Data mining tasks are
@@ -428,6 +423,7 @@ Table~\ref{tab:courses_credits} shows that count.
 \end{table}
 
 \subsection{Moodle Users - Students, and Professors}
+\label{ref:moodle_users}
 
 The logs contain the actions of the Moodle users which role can be of a
 professors or a students. The data contains features for Students but no
@@ -518,6 +514,7 @@ Table~\ref{tab:moodle_users_stats} shows some stats regarding Moodle users.
 \end{table}
 
 \subsection{Results}
+\label{sec:results}
 
 The data repository contains the results of students in the courses where they
 participated. A listing of grades students had in particular courses is
@@ -593,6 +590,7 @@ Table~\ref{tab:results_stats} shows some statistics on the results data.
 \end{table}
 
 \subsection{Moodle Logs}
+\label{sec:logs}
 
 Moodle logs contain the actual activities of Moodle users. Each log entry
 states a user who performed a~\gls{crud} action in a course page. The actions
@@ -646,16 +644,67 @@ From the original data we make an initial pre processing in order to have a
 consistent repository of datasets ready for further analysis. The pre-processed
 datasets have consistent names and fields.
 
-% CoursesGeneral.csv
-% CoursesEntriesOverview.csv
-% MoodleUsers.csv
-% Students.csv
-% CoursesStudents.csv
-% Results.csv
-% MoodleLogs.csv
-% CoursesNoMoodle.csv
+The data stored in CSV files from which any statistics are calculated and
+experiments are executed. The data is also organized following a relational
+paradigm, even if the data is not stored in a relational database.
 
-\TODO{}
+The following sections describe which datasets store the data of the various
+objects as described in section~\ref{sec:objs_ents_feat}. In the end of this
+section, figure\ref{fig:er} shows the relational model of the various datasets.
+
+\subsection{Courses Datasets}
+
+Data on the courses is mostly store in the following dataset files:
+
+\begin{itemize}
+    \item \texttt{CoursesEntriesOverview}
+    \item \texttt{CoursesGeneral}
+    \item \texttt{CoursesNoMoodle}
+    \item \texttt{CoursesStudents}
+\end{itemize}
+
+The first dataset contains mostly what is found in the original
+\texttt{ResultadosUCMoodle} dataset. The second dataset contains general
+information on each course, namely the three codes that identify each course,
+the course name, regime, credits, etc.
+
+The \texttt{CoursesNoMoodle} dataset simply contains a listing of courses that
+have no moodle. These courses aren't very important since no other information
+on them is available. But they are still kept in the processed datasets.
+
+The \texttt{CoursesStudents} dataset contains one entry for each course. Each
+entry states the total number of students of that course, the total number of
+approved students, and the approval ration for that course. This information
+would easily be calculated from other datasets in this repository, but it is
+kept here since it was present in the original datasets.
+
+\subsection{Moodle Users Datasets}
+
+The following three datasets store information on the Moodle users:
+
+\begin{itemize}
+    \item \texttt{MoodleUsers}
+    \item \texttt{Students}
+\end{itemize}
+
+Each Moodle user has a username, an actual name, and a role. That information
+is stored in \texttt{MoodleUsers}. Students have the fields stated in
+section~\ref{ref:moodle_users}, and those are stored in the \texttt{Students}
+dataset.
+
+\subsection{Results and Profiling Datasets}
+
+Results are mostly stored in the \texttt{Results} dataset, but some other
+information is stored in \texttt{Profile}.
+
+The results consist of the fields stated in section~\ref{sec:results}.
+
+\TODO{Talk about the profile dataset}
+
+\subsection{Moodle Logs Dataset}
+
+The logs dataset in \texttt{MoodleLogs} contain the entries as described in
+section~\ref{sec:logs}.
 
 \begin{figure}[h!]
     \centering
@@ -663,8 +712,8 @@ datasets have consistent names and fields.
     \includegraphics[width=\linewidth]{../ER/er.pdf}
 
     \caption
-        []
-        {}
+        [Relational model for processed data repository]
+        {Relational model for processed data repository.}
 
     \label{fig:er}
 \end{figure}

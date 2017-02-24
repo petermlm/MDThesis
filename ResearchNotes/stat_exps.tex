@@ -3,6 +3,9 @@
 % =============================================================================
 \section{Statistics}
 
+This section contains simple statistical analysis done to the data to better
+understand it.
+
 \subsection{\texttt{STAT\_001} - Group Courses by Credits}
 
 This experiment plots the number of courses for each possible number of credits
@@ -212,3 +215,102 @@ on, which is normal behaviour.
 
 % =============================================================================
 \section{Experiments}
+
+This section contains Data Mining tasks done to the data. Each task doesn't
+just use one of the datasets (\texttt{CSV} files), rather, it creates datasets
+from existing ones and also calculates new fields.
+
+\subsection{\texttt{EXP\_001} - \textit{Pending Name}}
+
+\TODO{This experiment isn't finished yet.}
+
+In this experiment datasets are build to represent a student's activity in a
+given course and it's final outcome. The first dataset simply as a binary class
+representing if the student was approved or not. The second has the following
+classes:
+
+\begin{itemize}
+    \item $ [0, 10[ $
+    \item $ [10, 12[ $
+    \item $ [12, 14[ $
+    \item $ [14, 16[ $
+    \item $ [16, 18[ $
+    \item $ [18, 20] $
+\end{itemize}
+
+The datasets used to build the experiment sets are \textit{Students},
+\textit{CoursesGeneral}, \textit{MoodleLogs}, and \textit{Results}. The
+tables~\ref{tab:exp_001} shows the fields of the built datasets, their types,
+and origins. Note that the origin of some fields is \textit{Calculated}, this
+is not a dataset, but rather is used to indicate that that field was especially
+computed for this specific experiment.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | l |}
+        \hline
+        \textbf{Field}    & \textbf{Source Dataset}    & \textbf{Type} \\ \hline
+        StudentsNumber    & Student                    & Number        \\ \hline
+        EnrollementCount  & Student                    & Number        \\ \hline
+        StudentType       & Student                    & Enumerated    \\ \hline
+        CourseCodeSiiue   & CoursesGeneral             & String        \\ \hline
+        Semester          & CoursesGeneral             & Enumerated    \\ \hline
+        Season            & CoursesGeneral             & Enumerated    \\ \hline
+        TotalActsOnCourse & Calculated From MoodleLogs & Number        \\ \hline
+        CActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+        RActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+        UActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+        DActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+        Class             & Calculated From Results    & Binary        \\ \hline
+    \end{tabular}
+
+    \caption
+        []
+        {}
+
+    \label{tab:exp_001}
+\end{table}
+
+% (A quick first review)
+%
+% The first dataset has a flaw. It groups students and courses together to predicts grades from those courses. That doesn't really make sense....
+%
+% Student's usage data about a single course should predict grades on that course alone.
+%
+% The same goes for clustering. Doesn't make sense to cluster this.
+%
+% Check the number of students per course. If a given course has a lot of students with approvals, run a classification for that course only.
+%
+% Also, resample.
+
+\subsection{\texttt{EXP\_002} - \textit{Pending Name}}
+
+\TODO{This experiment isn't finished yet.}
+
+\subsection{\texttt{EXP\_003} - \textit{Pending Name}}
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | l |}
+        \hline
+        \textbf{Field}    & \textbf{Source Dataset}    & \textbf{Type} \\ \hline
+        StudentsNumber    & Student                    & Number        \\ \hline
+        EnrolledCourses   & Calculated From Results    & Number        \\ \hline
+        ApprovedCourses   & Calculated From Results    & Number        \\ \hline
+        TotalActsOnCourse & Calculated From MoodleLogs & Number        \\ \hline
+        CActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+        RActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+        UActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+        DActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+    \end{tabular}
+
+    \caption
+        []
+        {}
+
+    \label{tab:exp_003}
+\end{table}
+
+\TODO{This experiment isn't finished yet.}

@@ -40,15 +40,15 @@ Type\l}"];
 FirstEntry\l
 LastEntry\l
 EntriesInterval\l
-actsub\l
-actcons\l
-nactsubd\l
-consal\l
-consdoc\l
-subal\l
-subdoc\l
-nalu\l
-ndoc\l}"];
+NumberOfSubmission\l
+NumberOfActivities\l
+NumberOfDistintActivities\l
+StudentViews\l
+ProfessorViews\l
+StudentSubmissions\l
+ProfessorSubmissions\l
+NumberOfStudentsInCourse\l
+NumberOfProfessorsInCourse\l}"];
 
     moodle_users [label = "{
         <f0> MoodleUsers |
