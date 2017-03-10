@@ -15,7 +15,7 @@ import data
 import util
 
 
-output_dir = util.outputDirName(6)
+output_dir = util.outputDirName(7)
 
 
 if __name__ == "__main__":
@@ -45,4 +45,6 @@ if __name__ == "__main__":
     pyplot.bar(range(len(g1_values)), g1_values, width=1.0, facecolor="lightgray", edgecolor="lightgray")
     pyplot.bar(range(len(g2_values)), g2_values, width=1.0, facecolor="blue", edgecolor="blue")
 
-    pyplot.show()
+    util.makeDir(output_dir)
+    pyplot.xticks([])
+    pyplot.savefig(os.path.join(output_dir, "plot"))
