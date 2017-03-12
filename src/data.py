@@ -21,7 +21,7 @@ def load(sheet):
     return pd.read_csv(sheet)
 
 
-def makeDataset(approvedBinary=True):
+def prepare_dat_001(classes):
     df_stu = load(Students)
     df_cge = load(CoursesGeneral)
     df_log = load(MoodleLogs)
@@ -44,7 +44,6 @@ def makeDataset(approvedBinary=True):
             on = "CourseCodeMoodle",
             how = "left") \
         [["StudentsNumber",
-          # "CourseCodeSiiue",
           "CourseCodeMoodle",
           "CRUD",
           "NumberOfActivitiesPerWeek"]]
@@ -111,36 +110,58 @@ def makeDataset(approvedBinary=True):
             how="left")
 
     # Map the class
-    def mapBinary(x):
-        if x >= 10 and x <= 20:
-            return True
-        return False
-
     def mapClasses(x):
-        if x >= 10 and x < 12:
-            return "10-12"
-        elif x >= 12 and x < 14:
-            return "12-14"
-        elif x >= 14 and x < 16:
-            return "14-16"
-        elif x >= 16 and x < 18:
-            return "16-18"
-        elif x >= 18 and x <= 20:
-            return "18-20"
-        else:
-            return "failed"
+        if classes == "binary":
+            if x >= 10 and x <= 20:
+                return True
+            return False
 
-    if approvedBinary:
-        df_final["Grade"] = df_final["Grade"].map(mapBinary)
+        if classes == "2":
+            if x >= 10 and x < 12:
+                return "10-12"
+            elif x >= 12 and x < 14:
+                return "12-14"
+            elif x >= 14 and x < 16:
+                return "14-16"
+            elif x >= 16 and x < 18:
+                return "16-18"
+            elif x >= 18 and x <= 20:
+                return "18-20"
+            else:
+                return "failed"
+
+        if classes == "4":
+            if x >= 10 and x < 14:
+                return "10-14"
+            elif x >= 14 and x < 18:
+                return "14-18"
+            elif x >= 18 and x <= 20:
+                return "18-20"
+            else:
+                return "failed"
+
+    if classes == "binary":
+        df_final["Grade"] = df_final["Grade"].map(mapClasses)
         df_final.rename(columns={"Grade": "Approved"}, inplace=True)
     else:
         df_final["Grade"] = df_final["Grade"].map(mapClasses)
         df_final.rename(columns={"Grade": "GradeClass"}, inplace=True)
 
-    return df_final
+    return df_final.drop(["StudentsNumber"], axis=1)
 
 
-def makeArrays(df, approvedBinary=True):
+def dat_001(classes=None):
+    # Parse arguments
+    arguments = ["binary", "2", "4"]
+
+    if classes is None:
+        classes = "binary"
+    else:
+        if classes not in arguments:
+            raise Exception("Argument no in " + str(arguments))
+
+    df = prepare_dat_001(classes)
+
     def encode(values):
         le = preprocessing.LabelEncoder()
         le.fit(values)
@@ -165,7 +186,7 @@ def makeArrays(df, approvedBinary=True):
     df["UActsOnCourse"] = df["UActsOnCourse"].map(replaceNan)
     df["DActsOnCourse"] = df["DActsOnCourse"].map(replaceNan)
 
-    if approvedBinary:
+    if classes == "binary":
         return (
             df.drop(["Approved"], axis=1).values,
             df[["Approved"]].values)
