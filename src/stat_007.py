@@ -36,9 +36,6 @@ if __name__ == "__main__":
         .groupby("CourseCodeSiiue").agg("count") \
         .sort("StudentsNumber", ascending=False)
 
-    print(g1)
-    print(g2)
-
     g1_values = g1[["StudentsNumber"]].values.flatten()
     g2_values = g2[["StudentsNumber"]].values.flatten()
 
