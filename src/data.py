@@ -1,4 +1,5 @@
 import os
+import math
 
 
 import pandas as pd
@@ -116,7 +117,7 @@ def prepare_dat_001(classes):
                 return True
             return False
 
-        if classes == "2":
+        elif classes == "2":
             if x >= 10 and x < 12:
                 return "10-12"
             elif x >= 12 and x < 14:
@@ -130,7 +131,7 @@ def prepare_dat_001(classes):
             else:
                 return "failed"
 
-        if classes == "4":
+        elif classes == "4":
             if x >= 10 and x < 14:
                 return "10-14"
             elif x >= 14 and x < 18:
@@ -196,7 +197,7 @@ def dat_001(classes=None):
             df[["GradeClass"]].values)
 
 
-def makeDataset2():
+def prepare_dat_002():
     df_stu = load(Students)
     df_log = load(MoodleLogs)
     df_res = load(Results)
@@ -298,4 +299,33 @@ def makeDataset2():
     df_merged["ActSumU"] = df_merged["ActSumU"].map(removeNanFloat)
     df_merged["ActSumD"] = df_merged["ActSumD"].map(removeNanFloat)
 
-    return df_merged
+    return df_merged.drop(["StudentsNumber"], axis=1)
+
+
+def dat_002(classes=None, approvedJoin=False):
+    # Parse arguments
+    arguments = [None, "2", "4", "6"]
+
+    if classes is not None and classes not in arguments:
+        raise Exception("Argument no in " + str(arguments))
+
+    df = prepare_dat_002()
+
+    def mapClasses(x):
+        if x == 12:
+            x = 11
+        iclass = 13 // int(classes)
+        return x // math.floor(iclass)
+
+    if classes is not None:
+        df["ApprovedCourses"] = df["ApprovedCourses"].map(mapClasses)
+
+    # Approved field will be just another features. There will be no class
+    if approvedJoin:
+        return (df.values, None)
+
+    # Approved field will be the class of the dataset
+    else:
+        return (
+            df.drop(["ApprovedCourses"], axis=1).values,
+            df[["ApprovedCourses"]].values)

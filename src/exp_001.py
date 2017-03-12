@@ -4,16 +4,9 @@
 # TODO
 # =============================================================================
 
-import os
-
-import numpy as np
-import pandas as pd
-from sklearn import tree
-from sklearn import metrics
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.model_selection import KFold
 
 import data
+import tasks
 import util
 
 
@@ -45,19 +38,19 @@ def execute(model, classes_arg):
 
 if __name__ == "__main__":
     print("Decision Tree Classifier, Binary Class")
-    execute("tree", "binary")
+    tasks.supervised(data.dat_001("binary"), "tree")
 
     print("Decision Tree Classifier, Grades Classes 2 by 2")
-    execute("tree", "2")
+    tasks.supervised(data.dat_001("2"), "tree")
 
     print("Decision Tree Classifier, Grades Classes 4 by 4")
-    execute("tree", "4")
+    tasks.supervised(data.dat_001("4"), "tree")
 
     print("Bayesian Network, Binary Class")
-    execute("bayesian", "binary")
+    tasks.supervised(data.dat_001("binary"), "bayesian")
 
     print("Bayesian Network, Grades Classes 2 by 2")
-    execute("bayesian", "2")
+    tasks.supervised(data.dat_001("2"), "bayesian")
 
     print("Bayesian Network, Grades Classes 4 by 4")
-    execute("bayesian", "4")
+    tasks.supervised(data.dat_001("4"), "bayesian")

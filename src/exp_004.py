@@ -12,4 +12,4 @@ import util
 
 if __name__ == "__main__":
     print("K-Means")
-    tasks.unsupervised(data.dat_001())
+    tasks.unsupervised(data.dat_002(approvedJoin=False))

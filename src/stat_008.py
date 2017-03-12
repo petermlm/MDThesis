@@ -43,12 +43,53 @@ if __name__ == "__main__":
         .agg("count") \
         .rename(columns={"Results": "ApproveCount"})
 
+    # Group of enrolled
+    group_enrolled = enrolled.reset_index() \
+        .groupby("EnrolledCount") \
+        .agg("count")
+
+    # Group of approved
+    group_approved = approved.reset_index() \
+        .groupby("ApproveCount") \
+        .agg("count")
+
+    # Display results
     displayStats("Enrolled", enrolled[["EnrolledCount"]])
     displayStats("Approved", approved[["ApproveCount"]])
 
-    pyplot.boxplot([enrolled[["EnrolledCount"]].values,
+    # Plot graphs
+    def prepareForPlot(values, max_len):
+        ret = []
+
+        cur_index = 0
+        while cur_index < len(values):
+            if values[cur_index][0] > len(ret):
+                ret.append(0)
+                continue
+
+            ret.append(values[cur_index][1])
+            cur_index += 1
+
+        while len(ret) < max_len:
+            ret.append(0)
+
+        return ret
+
+    group_enrolled = prepareForPlot(group_enrolled.reset_index().values, 13)
+    group_approved = prepareForPlot(group_approved.reset_index().values, 13)
+
+    fig, p1 = pyplot.subplots()
+
+    p1.plot(range(13), group_enrolled)
+    p1.plot(range(13), group_approved)
+
+    p2 = p1.twinx()
+
+    p2.boxplot([enrolled[["EnrolledCount"]].values,
                     approved[["ApproveCount"]].values
         ], vert=False)
 
+
     util.makeDir(output_dir)
+    fig.tight_layout()
     pyplot.savefig(os.path.join(output_dir, "plot"))
