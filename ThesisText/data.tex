@@ -1,0 +1,466 @@
+\chapter{University of Évora's Moodle Data}
+
+% =============================================================================
+\section{Data Exploration}
+
+To begin with, we explore what was initially provided in terms of data. The
+repository is a spreadsheet book with 12 sheets. The sheets contain raw data
+and some calculated fields.
+
+In order to explore the data using the bash tools (cut, grep, etc) and tools
+like Python with Pandas, they were exported to a CSV format. Some
+transformations were applied to these files in other to clean useless data
+points or make the data easier to process.
+
+The provided sheets contain information of courses, students, their activities
+in Moodle, and their results. The data comes from Moodle databases and from the
+SIIUE system. Both systems are integrated, making Moodle plus SIIUE the
+University's own~\gls{lms}.
+
+The sheets are the following:
+
+\begin{itemize}
+    \item \texttt{UCs\_SIIUE\_Moodle.csv}
+    \item \texttt{complete\_rate.csv}
+    \item \texttt{completed.csv}
+    \item \texttt{Notas UCS SIIUE.csv}
+    \item \texttt{Profile}
+    \item \texttt{ResultadosUCMoodle}
+    \item \texttt{Correlação}
+    \item \texttt{Alunos SIIUE E-L}
+    \item \texttt{AlunosMoodle}
+    \item \texttt{export\_weekly}
+    \item \texttt{export\_activity}
+\end{itemize}
+
+Some sheets contained information that was the result of calculations from the
+established data. Analysis like these were removed from the data for two
+reasons. First, some analysis are not useful so them being in the data only
+makes the data more complex. By removing such analysis we get a simpler data
+model. Second, even if some analysis are in fact useful, they are still easily
+reproduced by the Python tools, with the difference that they are only
+reproduced when needed for specific experiments.
+
+Some analysis were made and are described in section~\ref{set:stats}
+
+The sheets that remained after removing analysis data are:
+
+\begin{itemize}
+    \item \texttt{UCs\_SIIUE\_Moodle.csv}
+    \item \texttt{Notas UCS SIIUE.csv}
+    \item \texttt{Profile}
+    \item \texttt{ResultadosUCMoodle}
+    \item \texttt{Alunos SIIUE E-L}
+    \item \texttt{AlunosMoodle}
+\end{itemize}
+
+The rest of the sheets contain the objects which are going to be used in the
+Data Mining tasks. Those objects and their features are fairly unorganized in
+the original data, so an analysis on of the available features had to be done.
+Section~\ref{sec:objs_feat} states the objects found in the data and details
+their features. Section~\ref{sec:preproc_dataset} shows how the final dataset
+is organized.
+
+% =============================================================================
+\section{Objects and Features}
+\label{sec:objs_feat}
+
+After a first analysis of the data, the objects are identified. These objects
+are courses, students, results, etc. Data mining tasks are applied over these
+objects which are described by their features.
+
+This section specifies objects in this data repository and states their
+features.
+
+\subsection{Courses}
+\label{sec:data_courses}
+
+In the data, a course is identified by one of three unique ids. They are, the
+Course Id, SIIUE's Course's Code, and Moodle Course's Code. The Course Id is
+simply a unique positive integer number which is probably assigned as an
+incremental value when the courses where created in some database.
+
+The two course's code come from their register in the SIIUE system and in the
+Moodle system. For the most part they are the same, when they are not the same
+the differences are minimal.
+
+Table~\ref{tab:course_code_example} shows an example of the three ids. Notice
+how \texttt{CourseCodeMoodle} is either the same as \texttt{CourseCodeSiiue} or
+has just minimal differences (in this case there is an underscore followed by a
+number).
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l l}
+\texttt{CourseId} & \texttt{CourseCodeSiiue} & \texttt{CourseCodeMoodle} \\ \hline
+        496       & \texttt{ARC10548}        & \texttt{ARC10548}         \\
+        1392      & \texttt{GES7182}         & \texttt{GES7182\_2}       \\
+        79        & \texttt{GES7182}         & \texttt{GES7182\_4}       \\
+        1535      & \texttt{GES7182}         & \texttt{GES7182\_3}       \\
+    \end{tabular}
+
+    \caption
+        [Example of course id and codes in the \texttt{CoursesGeneral} Dataset]
+        {Example of course id and codes in the \texttt{CoursesGeneral} Dataset.}
+
+    \label{tab:course_code_example}
+\end{table}
+
+Each course has the features listed in
+table~\ref{tab:courses_general_features}. The table displayed the features and
+their data type. Each course has a name, a department to which they belong, a
+cycle (if Master's Degree, Phd, etc), and a degree. These features are all
+strings.
+
+A course also has a regime, a semester, a season, and a type. These features
+are enumerated types because they have a limited domain. For example, the
+semester may either be ``\textit{Par}'' or ``\textit{Ímpar}'' (Even or Odd).
+The type only has one possible value which is \texttt{Normal}. Despite this,
+the field was kept in the data for completeness. Table~\ref{tab:courses_enum}
+shows the domain of each enumerated type.
+
+Finally, the credits are the only field which is a number.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature             & Data Type  \\ \hline
+        \texttt{Department} & String     \\
+        \texttt{Cycle}      & String     \\
+        \texttt{CourseName} & String     \\
+        \texttt{Regime}     & Enumerated \\
+        \texttt{Credits}    & Number     \\
+        \texttt{Degree}     & String     \\
+        \texttt{Semestre}   & Enumerated \\
+        \texttt{Season}     & Enumerated \\
+        \texttt{Type}       & Enumerated \\
+    \end{tabular}
+
+    \caption
+        [Data types of features of Courses]
+        {Data types of features of Courses as they appear in the
+        \texttt{CoursesGeneral} dataset.}
+
+    \label{tab:courses_general_features}
+\end{table}
+
+Some courses have no Moodle and, as such, have no other associated information.
+They are therefore useless for these experiments and were simply removed.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l |}
+        \hline
+        Regime   & \{ A, O, S \}                            \\ \hline
+        Semester & \{ \textit{Par}, \textit{Ímpar}, n/a \}  \\ \hline
+        Season   & \{ \textit{Normal}, \textit{Especial} \} \\ \hline
+        Type     & \{ \textit{Normal} \}                    \\ \hline
+    \end{tabular}
+
+    \caption
+        [Values for enumerated types on courses]
+        {Values for enumerated types on courses.}
+
+    \label{tab:courses_enum}
+\end{table}
+
+\subsection{Moodle Users - Students, and Professors}
+\label{ref:moodle_users}
+
+The logs contain the actions of the Moodle users which role can be of a
+professors or a students. The data contains features for Students but no
+features for professors. Table~\ref{tab:students_features}, contains all the
+features of students.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                   & Data Type  \\ \hline
+        \textit{StudentsId}       & Number     \\
+        \textit{StudentsNumber}   & Number     \\
+        \textit{MoodleUsername}   & String     \\
+        \textit{Name}             & String     \\
+        \textit{EnrollementCount} & Number     \\
+        \textit{StudentType}      & Enumerated \\
+    \end{tabular}
+
+    \caption
+        [Student features]
+        {Student features.}
+
+    \label{tab:students_features}
+\end{table}
+
+From table~\ref{tab:students_features} it is observable that a student may be
+identified by it's internal Moodle Student ID, or by it's student number as
+given by SIIUE. Some students in this data repository do not have a
+\textit{StudentsNumber} value, but those students also don't have any activity
+in the logs.
+
+The Students Number has a leading character indicating the cycle of that
+student. For example, a Master's Degree student has a number of the form
+\textit{m12345}, starting with an \textit{m}, and a PhD student has a number
+\textit{p12345} starting with a \textit{p}. In the data, the values for
+\textit{StudentsNumber} are typed as number and only contain the number part.
+But the field \textit{MoodleUsername} has the complete student's number.
+
+The Name field contains the actual name of the student. This information is
+useless for any analysis, but the name was kept for completeness.
+
+The values for the \textit{StudentType} field are \textit{Normal} or
+\textit{Interno} (Normal or Internal).
+
+Professors have only the features listed in table~\ref{tab:professor_features}.
+The data contains a field called \textit{Role} which states if that Moodle user
+is a professor or a student. If the user is a professor the role has a value of
+5. If it is a student, it has a value of 3. A few users with a value of 4 are
+present. These users have the role of editor, but the Moodle logs only have 11
+entries for a user of this role, so they are simply discarded.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                 & Data Type \\ \hline
+        \textit{MoodleUsername} & String    \\
+        \textit{Name}           & String    \\
+    \end{tabular}
+
+    \caption
+        [Professor features]
+        {Professor features.}
+
+    \label{tab:professor_features}
+\end{table}
+
+\subsection{Results}
+\label{sec:results}
+
+The data repository contains the results of students in the courses where they
+participated. A listing of grades students had in particular courses is
+available. Each object of that dataset, referred to as a Result, has the
+features listing in table~\ref{tab:results_fetures}. The values for the
+enumerated types are in table~\ref{tab:results_fetures_enum}.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                  & Data Type  \\ \hline
+        \textit{CourseCodeSiiue} & String     \\
+        \textit{StudentsNumber}  & Number     \\
+        \textit{Grade}           & Number     \\
+        \textit{Results}         & Enumerated \\
+        \textit{FinalResult}     & Enumerated \\
+    \end{tabular}
+
+    \caption
+        [Results features]
+        {Results features.}
+
+    \label{tab:results_fetures}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l |}
+        \hline
+        Results & \{ \textit{Anulado},
+                     \textit{Aprovado},
+                     \textit{Desistiu},
+                     \textit{Faltou},
+                     \textit{Reprovado}
+                  \} \\ \hline
+        FinalResult & \{ N, S, n/a \}  \\ \hline
+    \end{tabular}
+
+    \caption
+        [Values for enumerated types on results]
+        {Values for enumerated types on results.}
+
+    \label{tab:results_fetures_enum}
+\end{table}
+
+A student has a grade if he was approved (Results field has a value of
+\textit{Aprovado}). The value for \textit{FinalResult} is \textit{S} if and
+only if the value of \textit{Results} is \textit{Aprovado}. Else, it will be
+\textit{N}.
+
+The fields \textit{Results} and \textit{FinalResult} are always empty together
+and in that cases there is never any grade.
+
+\subsection{Profile}
+\label{sec:profile}
+
+Profile objects are objects that, for each pair of course and student, state
+the following indicators:
+
+\begin{itemize}
+    \item \texttt{NumberOfResources}
+    \item \texttt{NumberOfActivities}
+    \item \texttt{NumberOfViews}
+    \item \texttt{NumberOfSubmissions}
+\end{itemize}
+
+A resource in this context is any file or link that a professor may have placed
+in a Moodle page. Profile objects state the number of resources which were seen
+by a particular student in a particular course.
+
+An activity is any interaction in a Moodle forum or quizzed. A view is a view
+of any page, resource, etc. A submission is when a students submits a project.
+
+\subsection{Moodle Logs}
+\label{sec:logs}
+
+Moodle logs contain the actual activities of Moodle users. Each log entry
+states a user who performed a~\gls{crud} action in a course page. The actions
+are aggregated per week. Table~\ref{tab:moodle_logs_features} shows the
+features of the Moodle logs, and table~\ref{tab:moodle_logs_enum} shows the
+values of the enumerated fields. There are a total of 25207 entries in the
+Logs.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                            & Data Type  \\ \hline
+        \textit{CourseCodeMoodle}          & String     \\
+        \textit{Role}                      & Enumerated \\
+        \textit{MoodleUsername}            & String     \\
+        \textit{StudentsId}                & Number     \\
+        \textit{CRUD}                      & Enumerated \\
+        \textit{Week}                      & Number     \\
+        \textit{NumberOfActivitiesPerWeek} & Number     \\
+        \textit{StudentsNumber}            & Number     \\
+    \end{tabular}
+
+    \caption
+        [Moode Logs features]
+        {Moode Logs features.}
+
+    \label{tab:moodle_logs_features}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l |}
+        \hline
+        Role & \{ 3, 5 \} \\ \hline
+        CRUD & \{ C, R, U, D \}  \\ \hline
+    \end{tabular}
+
+    \caption
+        [Values for enumerated types on Moodle Logs]
+        {Values for enumerated types on Moodle Logs.}
+
+    \label{tab:moodle_logs_enum}
+\end{table}
+
+% =============================================================================
+\section{Preprocessed Datasets}
+\label{sec:preproc_dataset}
+
+From the original data we make an initial pre processing in order to have a
+consistent repository of datasets ready for further analysis. The pre-processed
+datasets have consistent names and fields.
+
+The data stored in CSV files from which any statistics are calculated and
+experiments are executed. The data is also organized following a relational
+paradigm.~\footnote{Despite the fact that the data is not kept in a Relational
+Database, having it organized in a relational paradigm simplifies the process
+of working with it using the Python tools}
+
+The following sections describe which datasets store the data of the various
+objects as described in section~\ref{sec:objs_feat}. In the end of this
+section, figure~\ref{fig:er} shows the relational model of the various datasets.
+
+\begin{figure}[h!]
+    \centering
+
+    \includegraphics[width=\linewidth]{../ER/er.pdf}
+
+    \caption
+        [Relational model for processed data repository]
+        {Relational model for processed data repository.}
+
+    \label{fig:er}
+\end{figure}
+
+\subsection{Courses Datasets}
+
+Data on the courses is store in the following dataset files:
+
+\begin{itemize}
+    \item \texttt{CoursesEntriesOverview}
+    \item \texttt{CoursesGeneral}
+    \item \texttt{CoursesNoMoodle}
+    \item \texttt{CoursesStudents}
+\end{itemize}
+
+The first dataset contains mostly what is found in the original
+\texttt{ResultadosUCMoodle} dataset. The second dataset contains general
+information on each course, namely the three codes that identify each course,
+the course name, regime, credits, etc.
+
+The \texttt{CoursesNoMoodle} dataset simply contains a listing of courses that
+have no moodle. These courses aren't very important since no other information
+on them is available. But they are still kept in the processed datasets.
+
+The \texttt{CoursesStudents} dataset contains one entry for each course. Each
+entry states the total number of students of that course, the total number of
+approved students, and the approval ration for that course. This information
+would easily be calculated from other datasets in this repository, but it is
+kept here since it was present in the original datasets as a non calculated
+field.
+
+\subsection{Moodle Users Datasets}
+
+Each Moodle user has a username, an actual name, and a role. That information
+is stored in \texttt{MoodleUsers}. This dataset contains users which are both
+professors and students. They are identified by their role.
+
+Students have the fields stated in section~\ref{ref:moodle_users}, and those
+are stored in the \texttt{Students} dataset.
+
+\subsection{Results}
+
+Results are stored in the \texttt{Results} dataset. The results consist of the
+fields stated in table~\ref{tab:results_fetures} in section~\ref{sec:results}.
+
+\subsection{Profiling Datasets}
+
+The \texttt{Profile} dataset contains the information stated in
+section~\ref{sec:profile}. The fields are shown in
+table~\ref{tab:profile_fields}.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{l l}
+        Feature                      & Data Type \\ \hline
+        \texttt{CourseCodeMoodle}    & String    \\
+        \texttt{CourseId}            & String    \\
+        \texttt{StudentsId}          & Number    \\
+        \texttt{NumberOfResources}   & Number    \\
+        \texttt{NumberOfActivities}  & Number    \\
+        \texttt{NumberOfViews}       & Number    \\
+        \texttt{NumberOfSubmissions} & Number    \\
+    \end{tabular}
+
+    \caption
+        [Profile features]
+        {Profile features.}
+
+    \label{tab:profile_features}
+\end{table}
+
+\subsection{Moodle Logs Dataset}
+
+The logs dataset in \texttt{MoodleLogs} contain the entries as described in
+section~\ref{sec:logs}.

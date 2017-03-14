@@ -71,8 +71,7 @@ StudentsId\l
 NumberOfResources\l
 NumberOfActivities\l
 NumberOfViews\l
-NumberOfSubmissions\l
-Results\l}"];
+NumberOfSubmissions\l}"];
 
     moodle_logs [label = "{
         <f0> MoodleLogs |
