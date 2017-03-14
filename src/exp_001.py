@@ -5,38 +5,14 @@
 # =============================================================================
 
 
+import sys
+
+
 import data
 import tasks
-import util
 
 
-def execute(model, classes_arg):
-    # Get dataset and make the necessary numpy arrays
-    features, classes = data.dat_001(classes=classes_arg)
-
-    # Create folds for training and testing
-    kf = KFold(n_splits=10)
-    kf.get_n_splits(features)
-
-    # Train and test with different folds
-    for train_index, test_index in kf.split(features):
-        # Fit
-        if model == "tree":
-            clf = tree.DecisionTreeClassifier()
-        elif model == "bayesian":
-            clf = MultinomialNB()
-
-        clf.fit(features[train_index], classes[train_index])
-
-        # And get it's accuracy
-        m = metrics.accuracy_score(
-            classes[test_index],
-            clf.predict(features[test_index]))
-
-        print("\t%0.2f" % (m))
-
-
-if __name__ == "__main__":
+def doAll():
     print("Decision Tree Classifier, Binary Class")
     tasks.supervised(data.dat_001("binary"), "tree")
 
@@ -54,3 +30,16 @@ if __name__ == "__main__":
 
     print("Bayesian Network, Grades Classes 4 by 4")
     tasks.supervised(data.dat_001("4"), "bayesian")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        doAll()
+
+    elif len(sys.argv) == 3:
+        tasks.supervised(data.dat_001(sys.argv[2]), sys.argv[1])
+
+    else:
+        print("Usage:")
+        print("\texp_001.py")
+        print("\texp_001.py [tree | bayesian] [binary | 2 | 4]")
