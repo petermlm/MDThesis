@@ -9,25 +9,27 @@ import util
 
 if __name__ == "__main__":
     limit = None
+    classes_op = None
 
     if len(sys.argv) == 1:
         model = "tree"
-        classes = "2"
 
     elif len(sys.argv) in [3, 4]:
         model = sys.argv[1]
-        classes = sys.argv[2]
+
+        if sys.argv[2] in ["2", "4", "6"]:
+            classes_op = sys.argv[2]
 
         if len(sys.argv) == 4:
-            limit = int(sys.argv[2])
+            limit = int(sys.argv[3])
 
     else:
         print("Usage:")
-        print("\texp_001a.py")
-        print("\texp_001a.py [tree | bayesian] [2 | 4] {limit}")
+        print("\texp_003a.py")
+        print("\texp_003a.py [tree | bayesian] [original | 2 | 4 | 6] {limit}")
         exit(1)
 
-    df = data.dat_001(classes)
+    df = data.dat_002(classes=classes_op, approvedJoin=False)
     clf, accuracy = tasks.supervised(df, model)
 
     # Display True Positives

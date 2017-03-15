@@ -5,12 +5,13 @@
 # =============================================================================
 
 
+import sys
+
 import data
 import tasks
-import util
 
 
-if __name__ == "__main__":
+def doAll():
     print("Decision Tree Classifier, Original Classes")
     tasks.supervised(data.dat_002(approvedJoin=False), "tree")
 
@@ -34,3 +35,23 @@ if __name__ == "__main__":
 
     print("Bayesian Network, 6 Classes")
     tasks.supervised(data.dat_002(classes="6", approvedJoin=False), "bayesian")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        doAll()
+
+    elif len(sys.argv) == 3:
+        classes_op = None
+
+        if sys.argv[2] in ["2", "4", "6"]:
+            classes_op = sys.argv[2]
+
+        df = data.dat_002(classes=classes_op, approvedJoin=False)
+        tasks.supervised(df, sys.argv[1])
+
+    else:
+        print("Usage:")
+        print("\texp_003.py")
+        print("\texp_003.py [tree | bayesian] [original | 2 | 4 | 6]")
+        exit(1)

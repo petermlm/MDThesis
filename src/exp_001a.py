@@ -23,6 +23,7 @@ if __name__ == "__main__":
         print("Usage:")
         print("\texp_001a.py")
         print("\texp_001a.py [tree | bayesian] {limit}")
+        exit(1)
 
     df = data.dat_001("binary")
     clf, accuracy = tasks.supervised(df, model)

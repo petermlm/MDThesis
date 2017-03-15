@@ -43,3 +43,4 @@ if __name__ == "__main__":
         print("Usage:")
         print("\texp_001.py")
         print("\texp_001.py [tree | bayesian] [binary | 2 | 4]")
+        exit(1)
