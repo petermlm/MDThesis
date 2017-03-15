@@ -7,9 +7,9 @@
 
 import data
 import tasks
-import util
 
 
 if __name__ == "__main__":
-    print("K-Means")
-    tasks.unsupervised(data.dat_002(approvedJoin=False))
+    for i in range(2, 10):
+        print("K-Means, %s" % (i))
+        tasks.unsupervised(data.dat_002(approvedJoin=False), i)
