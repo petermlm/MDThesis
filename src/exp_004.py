@@ -12,4 +12,8 @@ import tasks
 if __name__ == "__main__":
     for i in range(2, 7):
         print("K-Means, %s" % (i))
-        tasks.unsupervised(data.dat_002(approvedJoin=False), i)
+        tasks.unsupervised(data.dat_002(approvedJoin=False), "kmeans", i)
+
+    for i in range(2, 7):
+        print("Affinity Propagation, %s" % (i))
+        tasks.unsupervised(data.dat_002(approvedJoin=False), "affinity", i)

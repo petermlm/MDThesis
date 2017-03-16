@@ -2,6 +2,7 @@ from sklearn import tree
 from sklearn import metrics
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.cluster import KMeans
+from sklearn.cluster import AffinityPropagation
 from sklearn.model_selection import KFold
 
 
@@ -25,6 +26,8 @@ def supervised(data, model):
             clf = tree.DecisionTreeClassifier()
         elif model == "bayesian":
             clf = MultinomialNB()
+        else:
+            raise Exception("Model %s doesn't exist" % (model))
 
         clf.fit(features[train_index], classes[train_index])
 
@@ -55,7 +58,7 @@ def supervised(data, model):
     return (best_clf, max_accuracy)
 
 
-def unsupervised(data, cluster_number):
+def unsupervised(data, model, cluster_number):
     # Get dataset and make the necessary numpy arrays
     features, _ = data
 
@@ -64,32 +67,39 @@ def unsupervised(data, cluster_number):
     kf.get_n_splits(features)
 
     # Train and test with different folds
-    best_kmeans = None
+    best_clf = None
     max_silhouette = 0
     min_silhouette = 0
     sum_silhouette = 0
 
     for train_index, test_index in kf.split(features):
-        kmeans = KMeans(n_clusters=cluster_number, random_state=0)
-        kmeans.fit(features[train_index])
+        # Fit
+        if model == "kmeans":
+            clf = KMeans(n_clusters=cluster_number, random_state=0)
+        elif model == "affinity":
+            clf = AffinityPropagation()
+        else:
+            raise Exception("Model %s doesn't exist" % (model))
+
+        clf.fit(features[train_index])
 
         # And get it's silhouette score
         silhouette = metrics.silhouette_score(
             features[train_index],
-            kmeans.labels_)
+            clf.labels_)
 
         # Keep info
-        if best_kmeans is None:
-            best_kmeans = kmeans
+        if best_clf is None:
+            best_clf = clf
             max_silhouette = silhouette
             min_silhouette = silhouette
 
         elif silhouette > max_silhouette:
-            best_kmeans = kmeans
+            best_clf = clf
             max_silhouette = silhouette
 
         elif silhouette < min_silhouette:
-            best_kmeans = kmeans
+            best_clf = clf
             min_silhouette = silhouette
 
         sum_silhouette += silhouette
@@ -98,4 +108,4 @@ def unsupervised(data, cluster_number):
 
     print("%0.2f, %0.2f, %0.2f" % (max_silhouette, min_silhouette, sum_silhouette / 10))
 
-    return (best_kmeans, max_silhouette)
+    return (best_clf, max_silhouette)
