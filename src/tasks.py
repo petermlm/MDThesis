@@ -15,7 +15,9 @@ def supervised(data, model):
 
     # Train and test with different folds
     best_clf = None
-    best_accuracy = 0
+    max_accuracy = 0
+    min_accuracy = 0
+    sum_accuracy = 0
 
     for train_index, test_index in kf.split(features):
         # Fit
@@ -31,14 +33,26 @@ def supervised(data, model):
             classes[test_index],
             clf.predict(features[test_index]))
 
-        # Keep best
-        if accuracy > best_accuracy:
+        # Keep info
+        if best_clf is None:
             best_clf = clf
-            best_accuracy = accuracy
+            max_accuracy = accuracy
+            min_accuracy = accuracy
+
+        elif accuracy > max_accuracy:
+            best_clf = clf
+            max_accuracy = accuracy
+
+        elif accuracy < min_accuracy:
+            min_accuracy = accuracy
+
+        sum_accuracy += accuracy
 
         print("\t%0.2f" % (accuracy))
 
-    return (best_clf, best_accuracy)
+    print("%0.2f, %0.2f, %0.2f" % (max_accuracy, min_accuracy, sum_accuracy / 10))
+
+    return (best_clf, max_accuracy)
 
 
 def unsupervised(data, cluster_number):
@@ -51,7 +65,9 @@ def unsupervised(data, cluster_number):
 
     # Train and test with different folds
     best_kmeans = None
-    best_silhouette = 0
+    max_silhouette = 0
+    min_silhouette = 0
+    sum_silhouette = 0
 
     for train_index, test_index in kf.split(features):
         kmeans = KMeans(n_clusters=cluster_number, random_state=0)
@@ -62,11 +78,24 @@ def unsupervised(data, cluster_number):
             features[train_index],
             kmeans.labels_)
 
-        # Keep best
-        if silhouette > best_silhouette:
+        # Keep info
+        if best_kmeans is None:
             best_kmeans = kmeans
-            best_silhouette = silhouette
+            max_silhouette = silhouette
+            min_silhouette = silhouette
+
+        elif silhouette > max_silhouette:
+            best_kmeans = kmeans
+            max_silhouette = silhouette
+
+        elif silhouette < min_silhouette:
+            best_kmeans = kmeans
+            min_silhouette = silhouette
+
+        sum_silhouette += silhouette
 
         print("\t%0.2f" % (silhouette))
 
-    return (best_kmeans, best_silhouette)
+    print("%0.2f, %0.2f, %0.2f" % (max_silhouette, min_silhouette, sum_silhouette / 10))
+
+    return (best_kmeans, max_silhouette)
