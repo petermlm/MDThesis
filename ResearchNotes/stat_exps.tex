@@ -310,14 +310,14 @@ three values instead of 4.
     \label{tab:dat_001}
 \end{table}
 
-\subsection{\texttt{DAT\_002} - Results and Logs}
+\subsection{\texttt{DAT\_002} - Number of Courses and Logs}
 \label{sec:dat_002}
 
 This dataset only contains features which a number type. Each object is
 calculated from the records of a single student and relates the number of
 enrolled courses, number of approved courses, number of each CRUD activity and
 overall number of activities. The records come from the \texttt{Results} and
-\texttt{MoodleLogs} datasets. Table~\ref{tab_dat_002} shows the features of
+\texttt{MoodleLogs} datasets. Table~\ref{tab:dat_002} shows the features of
 this dataset.
 
 \begin{table}[h!]
@@ -340,6 +340,49 @@ this dataset.
         {Dataset 002}
 
     \label{tab:dat_002}
+\end{table}
+
+\subsection{\texttt{DAT\_003} - Student/Course Profile and Results}
+\label{sec:dat_003}
+
+In this dataset we relate the profiling of a student in a courses and his
+results on that course. To begin constructing this dataset we use the Profiling
+dataset, as shown in section~\ref{sec:data_profiling}.
+
+The Profiling dataset contains a results field, however, the meaning of each
+value in this field is unknown. So initially, this field is dropped. To get the
+actual results of student we need the Results dataset.
+
+Each object of Profile contains the features \texttt{CourseCodeMoodle},
+\texttt{CourseId}, and \texttt{StudentsId}. But the Results dataset has
+\texttt{CourseCodeSiiue} and \texttt{StudentsNumber}. In order to relate both,
+the Students dataset and the CoursesGeneral dataset are needed.
+
+These datasets are related and some fields are dropped in order to produce a
+dataset with the features listed in table~\ref{tab:dat_003}.
+
+Like in dataset~\ref{sec:dat_001}, the class of this dataset may be binary, in
+which the student is approved or not, or divided in groups of 2 or 4.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | l |}
+        \hline
+        \textbf{Field}               & \textbf{Source Dataset} & \textbf{Type} \\ \hline
+        \texttt{CourseCodeSiiue}     & CoursesGeneral          & String        \\ \hline
+        \texttt{NumberOfResources}   & Profile                 & Number        \\ \hline
+        \texttt{NumberOfActivities}  & Profile                 & Number        \\ \hline
+        \texttt{NumberOfViews}       & Profile                 & Number        \\ \hline
+        \texttt{NumberOfSubmissions} & Profile                 & Number        \\ \hline
+        \texttt{Class}               & Results                 & Binary        \\ \hline
+    \end{tabular}
+
+    \caption
+        [Dataset 003]
+        {Dataset 003}
+
+    \label{tab:dat_003}
 \end{table}
 
 % =============================================================================
@@ -390,7 +433,7 @@ Conclusion: Based on the activity and number of enrolled courses we can
 predict the number of approved courses with great accuracy!
 \end{verbatim}
 
-\subsection{\texttt{EXP\_004} - clustering Number of Approved Courses Based on
+\subsection{\texttt{EXP\_004} - Clustering Number of Approved Courses Based on
 Moodle Usage}
 
 Experiment uses \texttt{DAT\_002}, described in section~\ref{sec:dat_002}.
@@ -398,3 +441,14 @@ Experiment uses \texttt{DAT\_002}, described in section~\ref{sec:dat_002}.
 \begin{verbatim}
 Results are similar to EXP_002
 \end{verbatim}
+
+\subsection{\texttt{EXP\_005} - Predicting Students Grades From Course
+Profiling}
+
+Experiment uses \texttt{DAT\_003}, described in section~\ref{sec:dat_003}.
+
+\begin{verbatim}
+Results are similar to EXP_001, but performs worse. Meaning that looking into
+Moodle usage data produces more accurate results then course profiling.
+\end{verbatim}
+
