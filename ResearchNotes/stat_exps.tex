@@ -351,7 +351,7 @@ dataset, as shown in section~\ref{sec:data_profiling}.
 
 The Profiling dataset contains a results field, however, the meaning of each
 value in this field is unknown. So initially, this field is dropped. To get the
-actual results of student we need the Results dataset.
+actual results of students we need the Results dataset.
 
 Each object of Profile contains the features \texttt{CourseCodeMoodle},
 \texttt{CourseId}, and \texttt{StudentsId}. But the Results dataset has
@@ -416,11 +416,8 @@ Conclusion: More updates -> better grades
 
 Experiment uses \texttt{DAT\_001}, described in section~\ref{sec:dat_001}.
 
-\begin{verbatim}
-Two clusters
-Conclusion: Clusters are found in users with different number of CRUD
-activities. Silhouette score isn't that great
-\end{verbatim}
+This experiment isn't correct because there are nominal fields. Clustering may
+be used in nominal fields, but the algorithms used in there may not.
 
 \subsection{\texttt{EXP\_003} - Predicting Number of Approved Courses Based on
 Moodle Usage}
@@ -442,7 +439,7 @@ Experiment uses \texttt{DAT\_002}, described in section~\ref{sec:dat_002}.
 Results are similar to EXP_002
 \end{verbatim}
 
-\subsection{\texttt{EXP\_005} - Predicting Students Grades From Course
+\subsection{\texttt{EXP\_005} - Predicting Students Grades From Student/Course
 Profiling}
 
 Experiment uses \texttt{DAT\_003}, described in section~\ref{sec:dat_003}.
@@ -451,4 +448,3 @@ Experiment uses \texttt{DAT\_003}, described in section~\ref{sec:dat_003}.
 Results are similar to EXP_001, but performs worse. Meaning that looking into
 Moodle usage data produces more accurate results then course profiling.
 \end{verbatim}
-
