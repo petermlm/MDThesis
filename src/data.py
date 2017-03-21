@@ -428,3 +428,9 @@ def dat_003(classes=None):
     return (
         df.drop([class_name], axis=1).values,
         df[[class_name]].values)
+
+
+def dat_004(classes=None):
+    df = prepare_dat_003("binary")
+    df = df.drop(["CourseCodeSiiue"], axis=1)
+    return df.values, []
