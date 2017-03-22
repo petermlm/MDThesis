@@ -17,7 +17,7 @@
 import os
 
 import numpy as np
-import pandas
+import pandas as pd
 from matplotlib import pyplot
 
 import data
@@ -27,8 +27,8 @@ import util
 output_dir = util.outputDirName(4)
 
 
-def outputFileName(index, courses, plot_type):
-    file_name = "fig_%d_%s_%s" % (index, courses, plot_type)
+def outputFileName(group_type, index, courses, plot_type):
+    file_name = "fig_%s_%d_%s_%s" % (group_type, index, courses, plot_type)
     return os.path.join(output_dir, file_name)
 
 
@@ -40,7 +40,7 @@ def takeCRUD(df, crud):
     return df.loc[lambda df: df["CRUD"] == crud]
 
 
-def plotCourse(index, course, groups):
+def plotCourse(group_type, index, course, groups):
     # Get this course's groups
     group_all = groups["all"].loc[course]
     group_C   = groups["C"].loc[course]
@@ -69,13 +69,13 @@ def plotCourse(index, course, groups):
     plot_U, = pyplot.plot(weeks_U, act_U)
     plot_D, = pyplot.plot(weeks_D, act_D)
 
-    pyplot.title("%d - %s" % (index, course))
+    # pyplot.title("%d - %s" % (index, course))
     pyplot.figlegend(
         (plot_all[0], plot_C, plot_R, plot_U, plot_D),
         ("All", "C", "R", "U", "D"),
         "upper right")
 
-    pyplot.savefig(outputFileName(index, course, "all"));
+    pyplot.savefig(outputFileName(group_type, index, course, "all"));
     pyplot.clf()
 
     # Plot the C, U, and D only
@@ -83,13 +83,13 @@ def plotCourse(index, course, groups):
     plot_U, = pyplot.plot(weeks_U, act_U)
     plot_D, = pyplot.plot(weeks_D, act_D)
 
-    pyplot.title("%d - %s" % (index, course))
+    # pyplot.title("%d - %s" % (index, course))
     pyplot.figlegend(
         (plot_C, plot_U, plot_D),
         ("C", "U", "D"),
         "upper right")
 
-    pyplot.savefig(outputFileName(index, course, "cud"));
+    pyplot.savefig(outputFileName(group_type, index, course, "cud"));
     pyplot.clf()
 
 
@@ -105,9 +105,16 @@ if __name__ == "__main__":
         "NumberOfActivitiesPerWeek"
     ]]
 
-    # Get 6 most common courses
-    courses_count = df_redux["CourseCodeMoodle"].value_counts()
-    common_courses = courses_count.sort_values(ascending=False)[:6]
+    # Get 2 most common courses, 2 middle courses, and 2 least common
+    courses_count = df_redux["CourseCodeMoodle"] \
+        .value_counts() \
+        .sort_values(ascending=False)
+
+    courses_count_half = len(courses_count) // 2
+
+    courses_to_plot_most = courses_count[:2]
+    courses_to_plot_middle = courses_count[courses_count_half:courses_count_half+2]
+    courses_to_plot_least = courses_count[-12:-10]
 
     # Group by course code and week number, having the total number of
     # activities for that week and for that course. Do this for every CRUD
@@ -124,5 +131,10 @@ if __name__ == "__main__":
     util.makeDir(output_dir)
 
     # Get week number and activities number of a specific course
-    for index, course in enumerate(common_courses.index.tolist()):
-        plotCourse(index, course, groups)
+    def doPlot(group_type, courses_list):
+        for index, course in enumerate(courses_list.index.tolist()):
+            plotCourse(group_type, index, course, groups)
+
+    doPlot("most", courses_to_plot_most)
+    doPlot("middle", courses_to_plot_middle)
+    doPlot("least", courses_to_plot_least)
