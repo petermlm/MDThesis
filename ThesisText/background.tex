@@ -220,11 +220,20 @@ classified instances, while most achieve a value over 70\%.
 \section{Data Mining Tools}
 
 The practical component of this project was developed entirely using Python and
-some Python libraries which are relevant in. The version of CPython used was
-version 3.5.2. The python libraries Pandas, version 0.19.2, was used for
-statistical analysis, exploration, and preprocessing. The library SciKit-Learn,
-version 0.18.1, was used to perform Data Mining tasks. SciKit-Learn uses Numpy
-and Scikit, in versions 1.11.3 and 0.18.1 respectively. To output some graphs,
-the python library Mat Plot Lib, version 1.5.4, was used.
+some Python libraries. The version of CPython used was version 3.5.2. The
+python libraries Pandas, version 0.19.2, was used for statistical analysis,
+exploration, and preprocessing. The library SciKit-Learn, version 0.18.1, was
+used to perform Data Mining tasks. SciKit-Learn uses Numpy and Scikit, in
+versions 1.11.3 and 0.18.1 respectively. To output some graphs, the python
+library Mat Plot Lib, version 1.5.4, was used.
 
-\TODO{State the actual methods and algorithms in SciKit-Learn that were used}
+Decision trees and Bayesian Networks were used in this project. The algorithm
+to train decision trees, implemented in the SciKit-Learn library, is an
+optimized version of the CART algorithm~\cite{web_scikit_trees}. Bayesian
+Networks are used in Naive Bayes tasks. The algorithm to train such models,
+also implemented in SciKit-Learn, is Multinomial Naive
+Bayes~\cite{web_scikit_bayes}.
+
+Clustering is done using K-Means~\cite{web_scikit_kmeans} and Affinity
+Propagation~\cite{web_scikit_affinity}. Both algorithms are implemented in
+SciKit-Learn.
