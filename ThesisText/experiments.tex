@@ -1,0 +1,408 @@
+\chapter{Experiments}
+\label{sec:exps}
+
+The Data Mining experiments made in this project consist in organizing the data
+from the processed datasets described in section~\ref{sec:preproc_dataset} into
+a new dataset useful for a set of experiments. This chapter is organized by
+sections on each dataset. Each dataset is used in several experiments with
+different algorithms.
+
+\section{Students, Courses, Logs, and Results}
+\label{sec:exp_001_002}
+
+In an initial analysis, we look into how Moodle usage relates with student's
+success. A dataset is build with the features presented in
+table~\ref{tab:dat_001}. The new dataset takes information from the following
+datasets:
+
+\begin{itemize}
+    \item \texttt{Students}
+    \item \texttt{CoursesGeneral}
+    \item \texttt{MoodleLogs}
+    \item \texttt{Results}
+\end{itemize}
+
+Each object of the dataset contains information referencing a single student in
+a single course. The objects contain the overall enrollment count and type of
+student. They also contain the identification of a course along with the
+semester and season of that course. Finally, the object contains a count of
+CRUD activities of that student in that course.
+
+The dataset can be generated with different classes. There are three options.
+Option one, the class is binary and has the value true if the student was
+approved on that course, and false otherwise. Option two, the class has one of
+the following values which are intervals of grades:
+
+\[
+    [0, 10[\;,\, [10, 12[\;,\, [12, 14[\;,\, [14, 16[\;,\, [16, 18[\;,\, [18, 20]
+\]
+
+Option three, the class has one of the following values:
+
+\[
+    [0, 10[\;,\, [10, 14[\;,\, [14, 18[\;,\, [18, 20]
+\]
+
+With option two, we get a dataset which groups every records with grades below
+10, but separates the positive grades in groups of two. Option three does the
+same but separates grades into groups of four, with the last group having only
+three values instead of four.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | l |}
+        \hline
+        \textbf{Field}             & \textbf{Source Dataset}    & \textbf{Type} \\ \hline
+        \texttt{EnrollementCount}  & Student                    & Number        \\ \hline
+        \texttt{StudentType}       & Student                    & Enumerated    \\ \hline
+        \texttt{CourseCodeSiiue}   & CoursesGeneral             & String        \\ \hline
+        \texttt{Semester}          & CoursesGeneral             & Enumerated    \\ \hline
+        \texttt{Season}            & CoursesGeneral             & Enumerated    \\ \hline
+        \texttt{TotalActsOnCourse} & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{CActsOnCourse}     & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{RActsOnCourse}     & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{UActsOnCourse}     & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{DActsOnCourse}     & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{Class}             & Calculated From Results    & Binary        \\ \hline
+    \end{tabular}
+
+    \caption
+        [Students, Courses, Logs, and Results]
+        {Students, Courses, Logs, and Results. This dataset joins information
+        from four processed datasets in order to relate a student, a course,
+        usage data from that student on that course, and the final grade of it}
+
+    \label{tab:dat_001}
+\end{table}
+
+\subsection{Predicting Students Grades Based on Moodle Usage}
+% EXP_001
+
+A first experiment on this dataset aims at predicting the students grades based
+on their Moodle usage data and in their other characteristics present on this
+dataset. In this experiment six tasks are made. Both Decision Trees and Bayesian
+Networks are trained using the dataset with binary classes, classes with
+intervals of two, and classes with intervals of four.
+
+Some fields on dataset~\ref{tab:dat_001} are strings and enumerated types,
+therefore, these are nominal fields. Because of this characteristic, Decision
+Trees and Bayesian Networks are used.~\TODO{Citation is needed on claim that
+Trees and BNets are good for nominal data}
+
+The models are trained using cross-validation with 10 splits. This means that
+the data is divided into 10 parts. Nine parts are used to train to models and
+the remaining part is used to test the models.
+
+Training is executed 10 times, each time with different splits for training and
+testing. The accuracy of each model is taken. Table~\ref{tab:exp_001_res} shows
+the maximum accuracy of the trained models, the minimum, and the average.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | r | r | r |}
+        \hline
+        \textbf{Model} & \textbf{Classes} & \textbf{Maximum} & \textbf{Minimum} & \textbf{Average} \\ \hline
+        Decision Tree    & Binary Class          & 0.92 & 0.34 & 0.70 \\
+                         & Grades Classes 4 by 4 & 0.84 & 0.22 & 0.59 \\
+                         & Grades Classes 2 by 2 & 0.74 & 0.34 & 0.55 \\ \hline
+        Bayesian Network & Binary Class          & 0.95 & 0.53 & 0.74 \\
+                         & Grades Classes 4 by 4 & 0.73 & 0.36 & 0.57 \\
+                         & Grades Classes 2 by 2 & 0.67 & 0.28 & 0.52 \\ \hline
+    \end{tabular}
+
+    \caption
+        [Predicting students grades based on Moodle usage results]
+        {Predicting students grades based on Moodle usage results. Two models
+        are trained 10 times on three different variations of the same dataset.
+        The maximum, minimum, and average accuracy is displayed for those ten
+        executions.}
+
+    \label{tab:exp_001_res}
+\end{table}
+
+It is observable that for binary classes, Bayesian Networks performed slightly
+better then decision trees. But for grade classes two by two and four by four,
+decision trees were better. In particular, training models for binary classes,
+understandably, yields better results on average.
+
+These results show that such models can be trained to predict grades of
+students with success.
+
+\subsection{Clustering Students Grades Based on Moodle Usage}
+% EXP_002
+
+With the same dataset, clustering using the K-Means algorithm is performed,
+however, the class feature is removed. The training and testing method is
+similar to the previous experiment. Cross validation is used and a model is
+trained 10 times, each time using nine different folds for training and one
+fold for testing.
+
+K-Means is trained and tested for a number of clusters between two and five.
+Testing is done using silhouette score. Like before, the maximum, minimum, and
+average score is taken. Table~\ref{tab:exp_002_res} shows the results.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | r | r | r |}
+        \hline
+        \textbf{Number of Clusters} & \textbf{Maximum} & \textbf{Minimum} & \textbf{Average} \\ \hline
+        2 & 0.72 & 0.68 & 0.69 \\ \hline
+        3 & 0.67 & 0.65 & 0.66 \\ \hline
+        4 & 0.68 & 0.64 & 0.66 \\ \hline
+        5 & 0.67 & 0.65 & 0.66 \\ \hline
+    \end{tabular}
+
+    \caption
+        []
+        {}
+
+    \label{tab:exp_002_res}
+\end{table}
+
+In general, the model fails to get good results having a maximum score of 0.72
+for two clusters. Numbers greater them five clusters were tried but they,
+understandably, got lower scores.
+
+To understand what the algorithm is separating, that is, which type of objects
+are being placed in which cluster, we look in detail to an execution of K-Means
+with two clusters.
+
+Table~\ref{tab:exp_002a_res} has a listing of objects that are placed in each
+of the two clusters. It is observable that the major difference is in the
+number of CRUD activities. Different values for activities remain the same for
+different courses and enrollment numbers, but greater values are placed in one
+cluster while lower values are placed in another.
+
+Besides K-Means, Affinity Propagation was executed with this dataset, but the
+algorithm performed poorly have scores below 0.5.
+
+\section{Number of Courses and Logs}
+
+In similar experiments to~\ref{sec:exp_001_002}, we make a dataset in which we
+relate a students total number of enrolled courses,  number of approved
+courses, and Moodle usage data.
+
+Each object of this dataset will have information on a single student. As
+mentioned, an object has the number of enrolled and approved courses and the
+sum of each CRUD activity for every course of that single student. Each entry
+does not have the identification of the student to which it refers too because
+that information is irrelevant for our learning objectives.
+
+This dataset only contains features which have a number type. The records come
+from the \texttt{Results} and \texttt{MoodleLogs} datasets.
+Table~\ref{tab_dat_002} shows the features of this dataset.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | l |}
+        \hline
+        \textbf{Field}           & \textbf{Source Dataset}    & \textbf{Type} \\ \hline
+        \texttt{EnrolledCourses} & Calculated From Results    & Number        \\ \hline
+        \texttt{ApprovedCourses} & Calculated From Results    & Number        \\ \hline
+        \texttt{ActSumAll}       & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{ActSumC}         & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{ActSumR}         & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{ActSumU}         & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{ActSumD}         & Calculated From MoodleLogs & Number        \\ \hline
+    \end{tabular}
+
+    \caption
+        [Number of Courses and Logs]
+        {Number of courses and logs. Each object in this dataset contains the
+        number of enrolled courses, number of approved courses and Moodle usage
+        data for a single student.}
+
+    \label{tab:dat_002}
+\end{table}
+
+Some classification tasks use the \texttt{ApprovedCourses} feature as a class. In this case, feature may be left in it's original form or it may be replaced by classes. There are three ways to do this replacement.~\TODO{Explain this and mentioned statistics}
+
+\subsection{Predicting Number of Approved Courses Based on Moodle Usage}
+% EXP_003
+
+Like before both Decision Trees and Bayesian Networks are used.
+Table~\ref{tab:exp_003_res} shows the maximum, minimum, and average accuracy
+for each pair of model and classes.
+
+The models are trained using cross validation with 10 splits like before.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | r | r | r |}
+        \hline
+        \textbf{Model} & \textbf{Classes} & \textbf{Maximum} & \textbf{Minimum} & \textbf{Average} \\ \hline
+        Decision Tree    & 2 Classes        & 1.00 & 0.64 & 0.83 \\
+                         & 4 Classes        & 1.00 & 0.29 & 0.68 \\
+                         & 6 Classes        & 1.00 & 0.21 & 0.68 \\
+                         & Original Classes & 0.86 & 0.14 & 0.52 \\ \hline
+        Bayesian Network & 2 Classes        & 1.00 & 0.47 & 0.70 \\
+                         & 4 Classes        & 0.87 & 0.29 & 0.56 \\
+                         & 6 Classes        & 0.86 & 0.07 & 0.43 \\
+                         & Original Classes & 0.86 & 0.00 & 0.39 \\ \hline
+    \end{tabular}
+
+    \caption
+        [Predicting number of approved courses based on Moodle usage results]
+        {Predicting number of approved courses based on Moodle usage results.
+        These are the results of two models being trained 10 times for 4
+        different variants of the same dataset. The maximum, minimum, and
+        average accuracy is shown.}
+
+    \label{tab:exp_003_res}
+\end{table}
+
+It is observable that Decision Trees reached an accuracy of 1 producing, no
+false negatives or false positives in testing, for all datasets except for the
+one with the original classes. On average, Decision Trees, models achieve high
+levels of accuracy for every dataset.
+
+Bayesian Networks are achieve hight level of accuracy, but not as high as
+Decision Trees. For the dataset with the original classes, Bayesian Networks
+perform similarly in the best case scenario, given that the values for maximum
+accuracy are similar. But the values for minimum and average are noticeably
+lower.
+
+Because the models trained with the original classes achieve high values for
+accuracy we conclude that it is possible to predict the exact number of
+approved courses with great accuracy given only the initial number of enrolled
+courses and the Moodle usage data, especially if such tasks are executed with
+Decision Trees.
+
+\subsection{Clustering Number of Approved Courses Based on Moodle Usage}
+% EXP_004
+
+Clustering methods are applied to look for groups of similar objects within
+this data. In this experiment, every field is a feature, so the
+\texttt{ApprovedCourses} field is a feature and not a class like before.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | r | r | r |}
+        \hline
+        \textbf{Number of Clusters} & \textbf{Maximum} & \textbf{Minimum} & \textbf{Average} \\ \hline
+        2 & 0.83 & 0.80 & 0.81 \\ \hline
+        3 & 0.78 & 0.75 & 0.76 \\ \hline
+        4 & 0.78 & 0.57 & 0.73 \\ \hline
+        5 & 0.68 & 0.55 & 0.61 \\ \hline
+        6 & 0.57 & 0.55 & 0.56 \\ \hline
+    \end{tabular}
+
+    \caption
+        [Clustering number of approved courses based on Moodle usage results]
+        {Clustering number of approved courses based on Moodle usage results. The table displays the results for the silhouette score for clustering.}
+
+    \label{tab:exp_004_res}
+\end{table}
+
+\TODO{These values are the same for every variant of the dataset. This needs to be explained}
+
+\section{Student/Course Profile and Results}
+
+In this dataset we relate the profiling of a student in a courses and his
+results on that course. To begin constructing this dataset we use the Profiling
+dataset, as shown in section~\ref{sec:profile}.
+
+The Profiling dataset contains a results field, however, the meaning of each
+value in this field is unknown. So initially, this field is dropped. To get the
+actual results of students we need the Results dataset.
+
+Each object of Profile contains the features \texttt{CourseCodeMoodle},
+\texttt{CourseId}, and \texttt{StudentsId}. But the Results dataset has
+\texttt{CourseCodeSiiue} and \texttt{StudentsNumber}. In order to relate both,
+the Students dataset and the CoursesGeneral dataset are needed.
+
+These datasets are related and some fields are dropped in order to produce a
+dataset with the features listed in table~\ref{tab:dat_003}.
+
+Like in dataset~\ref{sec:exp_001_002}, the class of this dataset may be binary, in
+which the student is approved or not, or divided in groups of 2 or 4.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | l |}
+        \hline
+        \textbf{Field}               & \textbf{Source Dataset} & \textbf{Type} \\ \hline
+        \texttt{CourseCodeSiiue}     & CoursesGeneral          & String        \\ \hline
+        \texttt{NumberOfResources}   & Profile                 & Number        \\ \hline
+        \texttt{NumberOfActivities}  & Profile                 & Number        \\ \hline
+        \texttt{NumberOfViews}       & Profile                 & Number        \\ \hline
+        \texttt{NumberOfSubmissions} & Profile                 & Number        \\ \hline
+        \texttt{Class}               & Results                 & Binary        \\ \hline
+    \end{tabular}
+
+    \caption
+        [Student/Course Profile and Results]
+        {Student/Course Profile and Results.}
+
+    \label{tab:dat_003}
+\end{table}
+
+\subsection{Predicting Students Grades From Student/Course Profiling}
+% EXP_005
+
+Using the described dataset, we train models to predict student grades based on
+profiling data. Table~\ref{tab:exp_005_res} shows the results of six tasks.
+Three for each Model. Each tasks is done in a variant of the dataset.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | r | r | r |}
+        \hline
+        \textbf{Model} & \textbf{Classes} & \textbf{Maximum} & \textbf{Minimum} & \textbf{Average} \\ \hline
+        Decision Tree    & Binary Class          & 0.91 & 0.43 & 0.73 \\
+                         & Grades Classes 4 by 4 & 0.65 & 0.31 & 0.44 \\
+                         & Grades Classes 2 by 2 & 0.56 & 0.18 & 0.34 \\ \hline
+        Bayesian Network & Binary Class          & 0.97 & 0.49 & 0.77 \\
+                         & Grades Classes 4 by 4 & 0.91 & 0.31 & 0.55 \\
+                         & Grades Classes 2 by 2 & 0.71 & 0.26 & 0.46 \\ \hline
+    \end{tabular}
+
+    \caption
+        [Predicting students grades from student/course profiling results]
+        {Predicting students grades from student/course profiling results. The
+        results show the maximum, minimum, and average for each trained model
+        and each dataset variant.}
+
+    \label{tab:exp_005_res}
+\end{table}
+
+We observe from the results that Bayesian Networks perform better then Decision
+Trees achieving greater levels of accuracy for each dataset variant.
+
+\subsection{Clustering Students Grades From Student/Course Profiling}
+% EXP_006
+
+Taking the same dataset, we remove the field \texttt{CourseCodeSiiue} and apply
+clustering like in previous experiments. Table~\ref{tab:exp_006_res} shows the
+results of this experiment.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | r | r | r |}
+        \hline
+        \textbf{Number of Clusters} & \textbf{Maximum} & \textbf{Minimum} & \textbf{Average} \\ \hline
+        2 & 0.64 & 0.60 & 0.63 \\ \hline
+        3 & 0.58 & 0.56 & 0.57 \\ \hline
+        4 & 0.57 & 0.53 & 0.54 \\ \hline
+        5 & 0.51 & 0.50 & 0.50 \\ \hline
+    \end{tabular}
+
+    \caption
+        []
+        {}
+
+    \label{tab:exp_006_res}
+\end{table}
+
+Having two clusters we get the higher values for silhouette score, but those
+values are still far from 1, meaning that the executed algorithms do not find
+any meaningful separation of objects into groups.

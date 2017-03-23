@@ -75,6 +75,7 @@ calculated values are useful, but should be recalculated elsewhere in a later
 time if necessary.
 
 \subsection{Sheet 5 - \texttt{Profile}}
+\label{sec:data_profiling}
 
 This sheet contains some analysis made to the data. To begin with, there are
 the following columns:
@@ -272,9 +273,9 @@ other tools when needed.
 \section{Objects, Entities, and Features}
 \label{sec:objs_ents_feat}
 
-After a first analysis of the data, the objects in the data are identified.
-These objects are the courses, students, results, etc. Data mining tasks are
-applied over these objects which are described by their features.
+After a first analysis of the data, the objects are identified.  These objects
+are the courses, students, results, etc. Data mining tasks are applied over
+these objects which are described by their features.
 
 This section specifies objects in this data repository and states their
 features.
@@ -283,7 +284,7 @@ features.
 \label{sec:data_courses}
 
 In the data, a course is identified by one of three unique ids. They are, the
-Course ID, SIIUE's Course's Code, and Moodle Course's Code. The Course id is
+Course Id, SIIUE's Course's Code, and Moodle Course's Code. The Course Id is
 simply a unique positive integer number which is probably assigned as an
 incremental value when the courses where created in some database.
 
@@ -291,7 +292,10 @@ The two course's code come from their register in the SIIUE system and in the
 Moodle system. For the most part they are the same, when they are not the same
 the differences are minimal.
 
-Table~\ref{tab:course_code_example} shows an example of the three ids. Notice how \texttt{CourseCodeMoodle} is either the same as \texttt{CourseCodeSiiue} or has just minimal differences (in this case there is an underscore follwed by a number).
+Table~\ref{tab:course_code_example} shows an example of the three ids. Notice
+how \texttt{CourseCodeMoodle} is either the same as \texttt{CourseCodeSiiue} or
+has just minimal differences (in this case there is an underscore followed by a
+number).
 
 \begin{table}[h!]
     \centering
@@ -320,7 +324,8 @@ strings.
 A course also has a regime, a semester, a season, and a type. These features
 are enumerated types because they have a limited domain. For example, the
 semester may either be ``\textit{Par}'' or ``\textit{Ímpar}'' (Even or Odd),
-the season may be ``\textit{Normal}'' or ``\textit{Special}''.
+the season may be ``\textit{Normal}'' or ``\textit{Especial}'' (Normal or
+Special).
 
 Finally, the credits are the only field which is a number.
 
@@ -348,8 +353,7 @@ Finally, the credits are the only field which is a number.
     \label{tab:courses_general_features}
 \end{table}
 
-Some courses have no Moodle. They are therefore useless for our these
-experiments.
+Some courses have no Moodle. They are therefore useless for these experiments.
 
 Some statistics are taken from the courses data as shown in
 table~\ref{tab:courses_stats}.
@@ -463,20 +467,15 @@ student. For example, a Master's Degree student has a number of the form
 \textit{StudentsNumber} are typed as number and only contain the number part.
 But the field \textit{MoodleUsername} has the complete student's number.
 
-The values for the \textit{StudentType} field are:
-
-\begin{itemize}
-    \item \textit{Normal}
-    \item \textit{Interno}
-\end{itemize}
+The values for the \textit{StudentType} field are \textit{Normal} or
+\textit{Interno} (Normal or Internal).
 
 Professors have only the features listed in table~\ref{tab:professor_features}.
 The data contains a field called \textit{Role} which states if that Moodle user
-is a professor or a student. Supposedly, if the user is a professor the role
-has a value of 5. If it is a student, it has a value of 3. However, we see
-entries for professors with a role value of 3 and vice versa. It is unknown if
-this role actually state the if a user is a professor or student or something
-else.
+is a professor or a student. If the user is a professor the role has a value of
+5. If it is a student, it has a value of 3. A few users with a value of 4 are
+present. These users have the role of editor, but the Moodle logs only have 11
+entries for a user of this role, so they are simply discarded.
 
 \begin{table}[h!]
     \centering
@@ -652,6 +651,18 @@ The following sections describe which datasets store the data of the various
 objects as described in section~\ref{sec:objs_ents_feat}. In the end of this
 section, figure\ref{fig:er} shows the relational model of the various datasets.
 
+\begin{figure}[h!]
+    \centering
+
+    \includegraphics[width=\linewidth]{../ER/er.pdf}
+
+    \caption
+        [Relational model for processed data repository]
+        {Relational model for processed data repository.}
+
+    \label{fig:er}
+\end{figure}
+
 \subsection{Courses Datasets}
 
 Data on the courses is mostly store in the following dataset files:
@@ -699,21 +710,16 @@ information is stored in \texttt{Profile}.
 
 The results consist of the fields stated in section~\ref{sec:results}.
 
-\TODO{Talk about the profile dataset}
+The \texttt{Profile} dataset contains the following calculated fields:
+
+\begin{itemize}
+    \item \texttt{NumberOfResources}
+    \item \texttt{NumberOfActivities}
+    \item \texttt{NumberOfViews}
+    \item \texttt{NumberOfSubmissions}
+\end{itemize}
 
 \subsection{Moodle Logs Dataset}
 
 The logs dataset in \texttt{MoodleLogs} contain the entries as described in
 section~\ref{sec:logs}.
-
-\begin{figure}[h!]
-    \centering
-
-    \includegraphics[width=\linewidth]{../ER/er.pdf}
-
-    \caption
-        [Relational model for processed data repository]
-        {Relational model for processed data repository.}
-
-    \label{fig:er}
-\end{figure}

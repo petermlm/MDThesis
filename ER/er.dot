@@ -71,8 +71,7 @@ StudentsId\l
 NumberOfResources\l
 NumberOfActivities\l
 NumberOfViews\l
-NumberOfSubmissions\l
-Results\l}"];
+NumberOfSubmissions\l}"];
 
     moodle_logs [label = "{
         <f0> MoodleLogs |
@@ -85,10 +84,8 @@ Week\l
 NumberOfActivitiesPerWeek\l
 StudentsNumber\l}"];
 
-    {rank=same students results moodle_users} ->
+    {rank=same students results moodle_users}
     {rank=same courses_general courses_students}
-    /* {rank=same courses_entries_overview courses_general} -> */
-    /* {rank=same courses_students profile moodle_logs} */
 
     students->results [
         dir="forward",

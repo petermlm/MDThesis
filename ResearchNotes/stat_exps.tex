@@ -1,4 +1,4 @@
-\chapter{Statistics and Experiments}
+\chapter{Statistics, Datasets, and Experiments}
 
 % =============================================================================
 \section{Statistics}
@@ -117,18 +117,18 @@ not that common.
 
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{../src/stat_004_results/fig_0_CTE-UMCED-2_all}
+        \includegraphics[width=\linewidth]{../src/stat_004_results/fig_most_0_CTE-UMCED-2_all}
         \label{subfig:stat_004_0_all}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{../src/stat_004_results/fig_3_INF7194_2_all}
+        \includegraphics[width=\linewidth]{../src/stat_004_results/fig_most_1_eDocOn-T1_all}
         \label{subfig:stat_004_3_all}
     \end{subfigure}
 
     \caption
-        [Stat 004 plots for all activities]
-        {Stat 004 plots for all activities.}
+        [Number of CRUD activities for two courses with greater activity]
+        {Number of CRUD activities for two courses with greater activity.}
 
     \label{fig:stat_004_all}
 \end{figure}
@@ -138,18 +138,20 @@ not that common.
 
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{../src/stat_004_results/fig_0_CTE-UMCED-2_cud}
+        \includegraphics[width=\linewidth]{../src/stat_004_results/fig_most_0_CTE-UMCED-2_cud}
         \label{subfig:stat_004_0_cud}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{../src/stat_004_results/fig_3_INF7194_2_cud}
+        \includegraphics[width=\linewidth]{../src/stat_004_results/fig_most_1_eDocOn-T1_cud}
         \label{subfig:stat_004_3_cud}
     \end{subfigure}
 
     \caption
-        [Stat 004 plots for C, U, and D activities]
-        {Stat 004 plots for C, U, and D activities.}
+        [Number of Create, Update, and Delete activities for two courses with
+        greater activity]
+        {Number of Create, Update, and Delete activities for two courses with
+        greater activity.}
 
     \label{fig:stat_004_cud}
 \end{figure}
@@ -213,21 +215,53 @@ on, which is normal behaviour.
     \label{fig:stat_006}
 \end{figure}
 
+\subsection{\texttt{STAT\_007} - Number of Students per Course and Number of
+Approved Students per Course}
+
+We plot what the title states. The grey bars show the number of students
+overall. The blue bars show the number of approved students. Each bar is one
+course. Figure~\ref{fig_stat_007} shows the results of this statistics.
+
+\begin{figure}[h!]
+    \centering
+
+    \includegraphics[width=\linewidth]{../src/stat_007_results/plot}
+
+    \caption
+        [Number of Students per Course and Number of Approved Students per
+        Course]
+        {Number of Students per Course and Number of Approved Students per
+        Course.}
+
+    \label{fig:stat_007}
+\end{figure}
+
 % =============================================================================
-\section{Experiments}
+\section{Datasets}
 
-This section contains Data Mining tasks done to the data. Each task doesn't
-just use one of the datasets (\texttt{CSV} files), rather, it creates datasets
-from existing ones and also calculates new fields.
+\subsection{\texttt{DAT\_001} - Students, Courses, Logs, and Results}
+\label{sec:dat_001}
 
-\subsection{\texttt{EXP\_001} - \textit{Pending Name}}
+This dataset, which features is presented in table~\ref{tar:dat_001}, takes
+information from the following datasets:
 
-\TODO{This experiment isn't finished yet.}
+\begin{itemize}
+    \item \texttt{Students}
+    \item \texttt{CoursesGeneral}
+    \item \texttt{MoodleLogs}
+    \item \texttt{Results}
+\end{itemize}
 
-In this experiment datasets are build to represent a student's activity in a
-given course and it's final outcome. The first dataset simply as a binary class
-representing if the student was approved or not. The second has the following
-classes:
+Each object of the dataset contains information referencing a single student in
+a single course. The objects contain the overall enrollment count and type of
+student. It also contain the identification of a course along with the semester
+and season of that course. Finally, the object contains a count of CRUD
+activities of that student in that course.
+
+The dataset can be generated with different classes. There are three options.
+Option one, the classes is a binary features which has the value true if the
+student was approved on that course, and false otherwise. Option two, the class
+has one of the following values which are intervals of grades:
 
 \begin{itemize}
     \item $ [0, 10[ $
@@ -238,79 +272,186 @@ classes:
     \item $ [18, 20] $
 \end{itemize}
 
-The datasets used to build the experiment sets are \textit{Students},
-\textit{CoursesGeneral}, \textit{MoodleLogs}, and \textit{Results}. The
-tables~\ref{tab:exp_001} shows the fields of the built datasets, their types,
-and origins. Note that the origin of some fields is \textit{Calculated}, this
-is not a dataset, but rather is used to indicate that that field was especially
-computed for this specific experiment.
+Option three, the class has one of the following values:
+
+\begin{itemize}
+    \item $ [0, 10[ $
+    \item $ [10, 14[ $
+    \item $ [14, 18[ $
+    \item $ [18, 20] $
+\end{itemize}
+
+With option two, we get a dataset which groups every records with grades below
+10, but separates the positive grades in groups of two. Option three does the
+same but separates grades into groups of four, with the last group having only
+three values instead of 4.
 
 \begin{table}[h!]
     \centering
 
     \begin{tabular}{| l | l | l |}
         \hline
-        \textbf{Field}    & \textbf{Source Dataset}    & \textbf{Type} \\ \hline
-        StudentsNumber    & Student                    & Number        \\ \hline
-        EnrollementCount  & Student                    & Number        \\ \hline
-        StudentType       & Student                    & Enumerated    \\ \hline
-        CourseCodeSiiue   & CoursesGeneral             & String        \\ \hline
-        Semester          & CoursesGeneral             & Enumerated    \\ \hline
-        Season            & CoursesGeneral             & Enumerated    \\ \hline
-        TotalActsOnCourse & Calculated From MoodleLogs & Number        \\ \hline
-        CActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
-        RActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
-        UActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
-        DActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
-        Class             & Calculated From Results    & Binary        \\ \hline
+        \textbf{Field}             & \textbf{Source Dataset}    & \textbf{Type} \\ \hline
+        \texttt{EnrollementCount}  & Student                    & Number        \\ \hline
+        \texttt{StudentType}       & Student                    & Enumerated    \\ \hline
+        \texttt{CourseCodeSiiue}   & CoursesGeneral             & String        \\ \hline
+        \texttt{Semester}          & CoursesGeneral             & Enumerated    \\ \hline
+        \texttt{Season}            & CoursesGeneral             & Enumerated    \\ \hline
+        \texttt{TotalActsOnCourse} & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{CActsOnCourse}     & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{RActsOnCourse}     & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{UActsOnCourse}     & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{DActsOnCourse}     & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{Class}             & Calculated From Results    & Binary        \\ \hline
     \end{tabular}
 
     \caption
-        []
-        {}
+        [Dataset 001]
+        {Dataset 001}
 
-    \label{tab:exp_001}
+    \label{tab:dat_001}
 \end{table}
 
-% (A quick first review)
-%
-% The first dataset has a flaw. It groups students and courses together to predicts grades from those courses. That doesn't really make sense....
-%
-% Student's usage data about a single course should predict grades on that course alone.
-%
-% The same goes for clustering. Doesn't make sense to cluster this.
-%
-% Check the number of students per course. If a given course has a lot of students with approvals, run a classification for that course only.
-%
-% Also, resample.
+\subsection{\texttt{DAT\_002} - Number of Courses and Logs}
+\label{sec:dat_002}
 
-\subsection{\texttt{EXP\_002} - \textit{Pending Name}}
-
-\TODO{This experiment isn't finished yet.}
-
-\subsection{\texttt{EXP\_003} - \textit{Pending Name}}
+This dataset only contains features which a number type. Each object is
+calculated from the records of a single student and relates the number of
+enrolled courses, number of approved courses, number of each CRUD activity and
+overall number of activities. The records come from the \texttt{Results} and
+\texttt{MoodleLogs} datasets. Table~\ref{tab:dat_002} shows the features of
+this dataset.
 
 \begin{table}[h!]
     \centering
 
     \begin{tabular}{| l | l | l |}
         \hline
-        \textbf{Field}    & \textbf{Source Dataset}    & \textbf{Type} \\ \hline
-        StudentsNumber    & Student                    & Number        \\ \hline
-        EnrolledCourses   & Calculated From Results    & Number        \\ \hline
-        ApprovedCourses   & Calculated From Results    & Number        \\ \hline
-        TotalActsOnCourse & Calculated From MoodleLogs & Number        \\ \hline
-        CActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
-        RActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
-        UActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
-        DActsOnCourse     & Calculated From MoodleLogs & Number        \\ \hline
+        \textbf{Field}           & \textbf{Source Dataset}    & \textbf{Type} \\ \hline
+        \texttt{EnrolledCourses} & Calculated From Results    & Number        \\ \hline
+        \texttt{ApprovedCourses} & Calculated From Results    & Number        \\ \hline
+        \texttt{ActSumAll}       & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{ActSumC}         & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{ActSumR}         & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{ActSumU}         & Calculated From MoodleLogs & Number        \\ \hline
+        \texttt{ActSumD}         & Calculated From MoodleLogs & Number        \\ \hline
     \end{tabular}
 
     \caption
-        []
-        {}
+        [Dataset 002]
+        {Dataset 002}
 
-    \label{tab:exp_003}
+    \label{tab:dat_002}
 \end{table}
 
-\TODO{This experiment isn't finished yet.}
+\subsection{\texttt{DAT\_003} - Student/Course Profile and Results}
+\label{sec:dat_003}
+
+In this dataset we relate the profiling of a student in a courses and his
+results on that course. To begin constructing this dataset we use the Profiling
+dataset, as shown in section~\ref{sec:data_profiling}.
+
+The Profiling dataset contains a results field, however, the meaning of each
+value in this field is unknown. So initially, this field is dropped. To get the
+actual results of students we need the Results dataset.
+
+Each object of Profile contains the features \texttt{CourseCodeMoodle},
+\texttt{CourseId}, and \texttt{StudentsId}. But the Results dataset has
+\texttt{CourseCodeSiiue} and \texttt{StudentsNumber}. In order to relate both,
+the Students dataset and the CoursesGeneral dataset are needed.
+
+These datasets are related and some fields are dropped in order to produce a
+dataset with the features listed in table~\ref{tab:dat_003}.
+
+Like in dataset~\ref{sec:dat_001}, the class of this dataset may be binary, in
+which the student is approved or not, or divided in groups of 2 or 4.
+
+\begin{table}[h!]
+    \centering
+
+    \begin{tabular}{| l | l | l |}
+        \hline
+        \textbf{Field}               & \textbf{Source Dataset} & \textbf{Type} \\ \hline
+        \texttt{CourseCodeSiiue}     & CoursesGeneral          & String        \\ \hline
+        \texttt{NumberOfResources}   & Profile                 & Number        \\ \hline
+        \texttt{NumberOfActivities}  & Profile                 & Number        \\ \hline
+        \texttt{NumberOfViews}       & Profile                 & Number        \\ \hline
+        \texttt{NumberOfSubmissions} & Profile                 & Number        \\ \hline
+        \texttt{Class}               & Results                 & Binary        \\ \hline
+    \end{tabular}
+
+    \caption
+        [Dataset 003]
+        {Dataset 003}
+
+    \label{tab:dat_003}
+\end{table}
+
+% =============================================================================
+\section{Experiments}
+
+This section gives a very brief overview of the experiments run for this
+project. The actual explanation and interpretation of them is written in the
+thesis text.
+
+\subsection{\texttt{EXP\_001} - Predicting Students Grades Based on Moodle
+Usage}
+
+Experiment uses \texttt{DAT\_001}, described in section~\ref{sec:dat_001}.
+
+\begin{verbatim}
+Tree Binary and Bayesian Binary
+Conclusion: More activity -> approved
+
+Tree 4 and Bayesian 4
+Conclusion: More activity -> approved
+Conclusion: More number of CRUD -> better grade
+Conclusion: More updates -> better grades
+
+Tree 2 and Bayesian 2
+Conclusion: More activity -> approved
+Conclusion: More number of CRUD -> better grade
+Conclusion: More updates -> better grades
+\end{verbatim}
+
+\subsection{\texttt{EXP\_002} - Clustering Moodle Usage Data}
+
+Experiment uses \texttt{DAT\_001}, described in section~\ref{sec:dat_001}.
+
+This experiment isn't correct because there are nominal fields. Clustering may
+be used in nominal fields, but the algorithms used in there may not.
+
+\subsection{\texttt{EXP\_003} - Predicting Number of Approved Courses Based on
+Moodle Usage}
+
+Experiment uses \texttt{DAT\_002}, described in section~\ref{sec:dat_002}.
+
+\begin{verbatim}
+Tree and Bayesian with original, 2, 4, or 6
+Conclusion: Based on the activity and number of enrolled courses we can
+predict the number of approved courses with great accuracy!
+\end{verbatim}
+
+\subsection{\texttt{EXP\_004} - Clustering Number of Approved Courses Based on
+Moodle Usage}
+
+Experiment uses \texttt{DAT\_002}, described in section~\ref{sec:dat_002}.
+
+Results are similar to \texttt{EXP\_002}.
+
+\subsection{\texttt{EXP\_005} - Predicting Students Grades From Student/Course
+Profiling}
+
+Experiment uses \texttt{DAT\_003}, described in section~\ref{sec:dat_003}.
+
+Results are similar to \texttt{EXP\_001}, but performs worse. Meaning that
+looking into Moodle usage data produces more accurate results then course
+profiling.
+
+\subsection{\texttt{EXP\_006} - Clustering Students Grades From Student/Course
+Profiling}
+
+Experiment uses \texttt{DAT\_003}, described in section~\ref{sec:dat_003}.
+
+This experiment drops the SIIUE Courses Code from the dataset. No significant
+results were achieved.

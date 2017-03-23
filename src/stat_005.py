@@ -51,7 +51,7 @@ if __name__ == "__main__":
     util.makeDir(output_dir)
 
     fig.tight_layout()
-    pyplot.title("Total Number of Activities vs Mean of Activities per Week")
+    # pyplot.title("Total Number of Activities vs Mean of Activities per Week")
     pyplot.figlegend(
         (sum_plot[0], mean_plot[0]),
         ("Total", "Mean"),
