@@ -33,5 +33,6 @@ all:
 	# mv $(OUTPDF) $(PDF)
 
 clean:
-	rm -rf $(OUTDIR)
-	rm -f $(PDF)
+	# After putting the UE model, things became too messy, so no clean
+	# rm -rf $(OUTDIR)
+	# rm -f $(PDF)
