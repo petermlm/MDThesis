@@ -87,8 +87,7 @@ intervals of two, and classes with intervals of four.
 
 Some fields on dataset~\ref{tab:dat_001} are strings and enumerated types,
 therefore, these are nominal fields. Because of this characteristic, Decision
-Trees and Bayesian Networks are used.~\TODO{Citation is needed on claim that
-Trees and BNets are good for nominal data}
+Trees and Bayesian Networks are used.
 
 The models are trained using cross-validation with 10 splits. This means that
 the data is divided into 10 parts. Nine parts are used to train to models and
@@ -295,12 +294,28 @@ this data. In this experiment, every field is a feature, so the
 
     \caption
         [Clustering number of approved courses based on Moodle usage results]
-        {Clustering number of approved courses based on Moodle usage results. The table displays the results for the silhouette score for clustering.}
+        {Clustering number of approved courses based on Moodle usage results.
+        The table displays the results for the silhouette score for clustering.
+        The values for every variant of the dataset are approximately the same,
+        so only one table is shown.}
 
     \label{tab:exp_004_res}
 \end{table}
 
-\TODO{These values are the same for every variant of the dataset. This needs to be explained}
+Table~\ref{tab:exp_004_res} shows the results of this experiment. The
+silhouette score shown is approximately the same for each variant of the
+dataset, so only one table is shown for every variant.
+
+It is observable that for two clusters, the score is around 0.8, and for three
+clusters the score is around 0.75. This shows how these objects are able to be
+separated in groups of two or three without having those groups overlapping.
+
+For a number of clusters equal to or greater than four, we start getting scores
+bellow 0.7.
+
+The results shown were obtain with the K-Means algorithm. Affinity Propagation
+was also executed, but the results obtained were not good, having scores within
+0.0 and 0.5.
 
 \section{Student/Course Profile and Results}
 
