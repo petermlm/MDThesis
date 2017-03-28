@@ -8,6 +8,7 @@ bin
 *.glg
 *.glo
 *.gls
+*.glsdefs
 *.idx
 *.ist
 *.lof

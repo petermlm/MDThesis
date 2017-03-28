@@ -157,11 +157,12 @@ explicit data point stating that a student gave up on a course, we can still
 observe student activity to verify if it decreases or not as the semester
 progresses over the weeks.
 
-The activity on a course is measured using the Moodle logs which contain the
-CRUD activities. CRUD activities, as stated in~\ref{sec:logs}, are aggregated
-by courses, students, and weeks. To have a sense of how activity changes over a
-course we take the logs dataset and aggregate every object only by course. So,
-each entry will have the sum of the activities aggregated by course and week.
+The activity on a course is measured using the Moodle logs which contain
+the~\gls{crud} activities. \gls{crud} activities, as stated in~\ref{sec:logs},
+are aggregated by courses, students, and weeks. To have a sense of how activity
+changes over a course we take the logs dataset and aggregate every object only
+by course. So, each entry will have the sum of the activities aggregated by
+course and week.
 
 To get a sense of activities over the semester, we take six courses. Two of the
 courses are the ones with the greatest number of activities, other two are the
@@ -344,8 +345,8 @@ activity of courses remains relatively the same as the semester moves forward.
     \includegraphics[width=\linewidth]{../src/stat_006_results/plot}
 
     \caption
-        [Total number of activities vs mean of activities per week]
-        {Total number of activities (right) vs total active courses (Left).}
+        [Total number of active courses per week (bars) vs total active courses (Left)]
+        {Total number of active courses per week (bars) vs total active courses (Left).}
 
     \label{fig:stat_006}
 \end{figure}

@@ -240,7 +240,7 @@
 %% Prefacio
 %
 \newcommand{\@PREAMBULO}{	
-	\include{prefacio}
+	% \include{prefacio}
 	\include{agradecimentos}
 	\@TABELAS
 	\include{sumario}
@@ -381,17 +381,17 @@
 		\@blankoddpage
 		\cleardoublepage
 		\tableofcontents
-		\addcontentsline{toc}{chapter}{Conte\'{u}do}
+		\addcontentsline{toc}{chapter}{Contents}
 		%
 		\@blankoddpage
 		\cleardoublepage
 		\listoffigures
-		\addcontentsline{toc}{chapter}{Lista de Figuras}
+		\addcontentsline{toc}{chapter}{List of Figures}
 		%
 		\@blankoddpage
 		\cleardoublepage
 		\listoftables
-		\addcontentsline{toc}{chapter}{Lista de Tabelas}
+		\addcontentsline{toc}{chapter}{List of Tables}
 		%
 		\@blankoddpage
 		\cleardoublepage
@@ -484,7 +484,7 @@
 			\par
 			\vspace{2em}
 			%
-			{INSTITUTO DE INVESTIGA\c{C}\~{A}O E FORMA\c{C}\~{A}O AVAN\c{C}ADA}
+			{ESCOLA DE CIÊNCIAS E TECNOLOGIA - DEPARTAMENTO DE INFORMÁTICA}
 			%
 		\end{flushright}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -616,7 +616,7 @@
 			\color{uegray}
 			\textbf{Contactos:}\\
 			Universidade de \'{E}vora\\
-			\textbf{Instituto de Investiga\c{c}\~{a}o e Forma\c{c}\~{a}o Avan\c{c}ada --- IIFA}\\
+			\textbf{Escola de Ciências e Tecnologia - Departamento de Informática}\\
 			Pal\'{a}cio do Vimioso~|~Largo Marqu\^{e}s de Marialva, Apart.\ 94\\
 			7002 - 554 \'{E}vora~|~Portugal\\
 			Tel: (+351)~266~706~581\\
