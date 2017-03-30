@@ -1,10 +1,6 @@
 \chapter{Conclusions and Future Work}
 \label{sec:final}
 
-% =============================================================================
-\section{This Project}
-\TODO{}
-
 In this project~\gls{edm} techniques were applied to the University of Évora's
 Moodle data. The tasks applied to the data were based on similar projects shown
 in the background section which also applied~\gls{edm} techniques to Moodle
@@ -12,10 +8,107 @@ data of other learning institutions.
 
 In this project it was shown how the original data from the University of
 Évora's Moodle was preprocessed into a data repository useful for analysis.
-Some statistics over that data were then shown.
+Some statistics over that data were then shown. The experiments were broken
+down by dataset. Each dataset was build from the pre processed original data.
 
-The techniques applied are divided into Supervised and Unsupervised learning. In supervised learning 
+The techniques applied are divided into Supervised and Unsupervised learning.
+In supervised learning, Decision Trees and Naive Bayes Classifiers were
+applied. In unsupervised learning, clustering was done using the K-Means and
+the Affinity Propagation algorithms.
 
 % =============================================================================
-\section{Future Work}
-\TODO{}
+\section{Supervised Learning Tasks}
+
+Supervised learning techniques were applied to the different variants of the
+three described datasets. For every one of them, Decision Trees and Naive Bayes
+Classifiers were trained using the cross validation technique described in
+section~\ref{sec:cross_val}.
+
+It was shown how these models were generally able to achieve high values of
+accuracy. This means that it is possible to:
+
+\begin{enumerate}
+    \item Predict student grades from their usage of Moodle;
+        (Section~\ref{sec:exp_001})
+    \item Predict how many courses is a student going to complete given he's
+        usage of Moodle and initial number of enrolled courses;
+        (Section~\ref{sec:exp_003})
+    \item Predict student grades from his usage of features in Moodle.
+        (Section~\ref{sec:exp_005})
+\end{enumerate}
+
+Following cross validation, each model was trained ten times, each training is
+done with nine folds from the dataset, leaving one fold for testing. Despite
+having high values for maximum accuracy, and relatively high values for average
+accuracy, some models show very low values for minimum accuracy. This means
+that some instances of training have testing folds which are too different from
+the folds used in training, and therefore, the testing folds may contain
+outlier objects.
+
+Continuing the analysis in this project, it might be important to understand
+which are these outlier cases in order to achieve better accuracies in further
+supervised learning tasks.
+
+% =============================================================================
+\section{Unsupervised Learning Tasks}
+
+Clustering tasks were done and it was shown that some separation of objects
+exists in the explored datasets. Results for experiment~\ref{sec:exp_004},
+which are about course completion given the number of enrolled courses and
+Moodle usage data, were particularly promising because the results show a
+maximum and average silhouette score above 0.70 for two, three, and four
+clusters.
+
+Clustering was also done by dividing the data into folds of ten and excluding
+one fold for each training execution, and then using that fold to calculate the
+silhouette score. The difference between the maximum and minimum silhouette
+scores using this division method were noted to be minimal, sometimes not
+exceeding a value of 0.05.
+
+In these unsupervised learning tasks, the K-Means algorithm was used along with
+Affinity Propagation. However, only K-Means produced good results for
+silhouette scores.
+
+From these results, two things can be further done. First, the clustering
+results may be analysed in order to understand what are the characteristics of
+each cluster of the more successful tasks. In section~\ref{sec:exp_002}, for
+example, we see that data seems to be divisible into two clusters. An
+hypothesis for this binary division may be that one cluster contains objects in
+which students get approved in courses while the other cluster contains the
+opposite.
+
+In section~\ref{sec:exp_004}, like mentioned above, we see good scores for two,
+three, and four clusters. However, without further analysis, no hypothesis is
+presented at this time as to what are the reasons we see such good separation
+of objects in this dataset.
+
+Aside from those analysis, one second thing to do is to use different
+clustering algorithms. One algorithm to use would be K-Modes, which is a
+variant of K-Means useful for nominal data, which is present in this data.
+
+% =============================================================================
+\section{Applications}
+
+The results of an~\gls{edm} study may have many applications. Experiments such
+as the ones made to dataset~\ref{sec:exp_001_002} and~\ref{sec:exp_005_006}
+yield insight into how the basic usage of Moodle is a great indicator of the
+success of students. From the trained models, future applications may be
+develop which look into students and their usage of Moodle and finally predict
+their success even before a student as finished a course. With such
+applications we can detect student behaviour that might lead to his failure of
+a course and signal that student to take action to avoid failure.
+
+From the Moodle data described in this project, further classification and
+clustering analysis may also be done. Mode Datasets may be built and analyse from
+the original data and more algorithms may be used. For example, a dataset may
+be built that joins Moodle usage data (as described in
+sections~\ref{sec:exp_001_002} and~\ref{sec:exp_005_006}) and profiling data
+(as described in section~\ref{sec:exp_003_004}). A dataset with all these
+fields might yield better accuracies in the prediction of grades or more ways
+to do clustering.
+
+Finally, other types of Data Mining analysis may be done. For example, in the
+background section, Neural Networks are mentioned to be a usual model
+in~\gls{edm} for grade prediction. Association Rule Analysis, which is a topic
+not discussed in this project, may also be used with this data. Possibly,
+dependencies between course completion features might be detected.

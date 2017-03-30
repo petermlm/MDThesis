@@ -365,7 +365,7 @@
 %% Abstract
 %
 \newenvironment{tueACRONIMOS}{
-	\chapter*{Lista de Acr\'{o}nimos}\addcontentsline{toc}{chapter}{Lista de Acr\'{o}nimos}
+	\chapter*{List of Acronyms}\addcontentsline{toc}{chapter}{List of Acronyms}
 }{
 }
 %
