@@ -44,9 +44,9 @@ if __name__ == "__main__":
     mean_values = np.array(group_mean["NumberOfActivitiesPerWeek"].values.tolist())
 
     fig, p1 = pyplot.subplots()
-    sum_plot = p1.plot(range(max_weeks+1), sum_values)
+    mean_plot = p1.plot(range(max_weeks+1), mean_values, color="red")
     p2 = p1.twinx()
-    mean_plot = p2.plot(range(max_weeks+1), mean_values, color="red")
+    sum_plot = p2.plot(range(max_weeks+1), sum_values)
 
     util.makeDir(output_dir)
 

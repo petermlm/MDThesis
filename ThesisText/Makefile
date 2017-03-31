@@ -1,4 +1,5 @@
-OUTDIR=bin
+# OUTDIR=bin
+OUTDIR=.
 DOC=thesis_text
 
 OUTPDF=$(OUTDIR)/$(DOC).pdf
@@ -8,15 +9,15 @@ PDF_ARGS=-file-line-error -halt-on-error -output-directory=$(OUTDIR)
 GLS_ARGS=-d $(OUTDIR)
 
 all:
-	mkdir -p bin
+	# mkdir -p bin
 	echo "==============================================================================="
 	echo "== PDF Latex"
 	echo "==============================================================================="
-	pdflatex $(PDF_ARGS) $(DOC)
+	xelatex $(PDF_ARGS) $(DOC)
 	echo "==============================================================================="
 	echo "== Make Glossaries"
 	echo "==============================================================================="
-	makeglossaries $(GLS_ARGS) $(DOC)
+	# makeglossaries $(GLS_ARGS) $(DOC)
 	echo "==============================================================================="
 	echo "== Bib Tex"
 	echo "==============================================================================="
@@ -24,13 +25,14 @@ all:
 	echo "==============================================================================="
 	echo "== PDF Latex"
 	echo "==============================================================================="
-	pdflatex $(PDF_ARGS) $(DOC)
+	xelatex $(PDF_ARGS) $(DOC)
 	echo "==============================================================================="
 	echo "== PDF Latex"
 	echo "==============================================================================="
-	pdflatex $(PDF_ARGS) $(DOC)
-	mv $(OUTPDF) $(PDF)
+	xelatex $(PDF_ARGS) $(DOC)
+	# mv $(OUTPDF) $(PDF)
 
 clean:
-	rm -rf $(OUTDIR)
-	rm -f $(PDF)
+	# After putting the UE model, things became too messy, so no clean
+	# rm -rf $(OUTDIR)
+	# rm -f $(PDF)

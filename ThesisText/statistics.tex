@@ -127,10 +127,10 @@ missing data or if there really are such degrees.
 \section{Students}
 
 Table~\ref{tab:moodle_users_stats} shows some stats regarding Moodle users.
-Some of the explored projects listed in the background, like~\TODO{cite}, have
-a number of students around 800 to 900 which is greater then the number of
+Some of the explored projects listed in the background, like~\cite{ind_001},
+have a number of students around 800 to 900 which is greater then the number of
 students in this dataset, but they also have a lower number of courses, for
-example~\TODO{cite} has 7, where this dataset has 77.
+example~\cite{ind_001} has 7, where this dataset has 77.
 
 \begin{table}[h!]
     \centering
@@ -157,13 +157,17 @@ explicit data point stating that a student gave up on a course, we can still
 observe student activity to verify if it decreases or not as the semester
 progresses over the weeks.
 
-The activity on a course is measured using the Moodle logs which contain the
-CRUD activities. CRUD activities, as stated in~\ref{sec:logs}, are aggregated
-by courses, students, and weeks. To have a sense of how activity changes over a
-course we take the logs dataset and aggregate every object only by course. So,
-each entry will have the sum of the activities aggregated by course and week.
+The activity on a course is measured using the Moodle logs which contain
+the~\gls{crud} activities. \gls{crud} activities, as stated in~\ref{sec:logs},
+are aggregated by courses, students, and weeks. To have a sense of how activity
+changes over a course we take the logs dataset and aggregate every object only
+by course. So, each entry will have the sum of the activities aggregated by
+course and week.
 
-To get a sense of activities over the semester, we take six courses. Two of the courses are the ones with the greatest number of activities, other two are the ones with a median number of activities, and the last two are courses with the least number of activities.
+To get a sense of activities over the semester, we take six courses. Two of the
+courses are the ones with the greatest number of activities, other two are the
+ones with a median number of activities, and the last two are courses with the
+least number of activities.
 
 We take the two courses with the most activity overall and plot a graph which x
 axis is the weeks and y axis is the number of activities.
@@ -293,7 +297,7 @@ semester.
 
 This leads to the conclusion not only that the levels of activity remain
 relatively constant during the semester, but also leads to the conclusion that
-many students don't quit the courses even i they fail.
+many students don't quit the courses even if they fail.
 
 To get an overall view of how activities change during the whole semester we
 make another plot. This time, we see the total number of activities for every
@@ -305,13 +309,22 @@ some courses are longer then others. For example, some courses may have their
 last evaluation in the first weeks of the exam season, while others may still
 have ongoing activity after exam season.
 
-\TODO{Explain what are active courses and show the plot}
-
 The mean of activities remains the same. The mean is calculated for each week
 only on courses that have any activity on that week. So looking at the last few
 weeks we get a mean of activities only for courses which are still active. With
 this in mind, we again see that courses remain relatively the same in terms of
 activities while the semester is going.
+
+The concept of active course needs to be understood. A course is active from
+week 0 until the last week for which there is any activity. For example, if the
+last activity of a course is on week 20, then the course is active from week 0
+until week 20.
+
+Figure~\ref{fig:stat_006} shows a graphs bar with the number of active courses
+per week, and again shows the total number of activities over these bars. We
+see that the number of active courses fall correlates with the fall of the
+total number of activities. This further reinforces the notion that the
+activity of courses remains relatively the same as the semester moves forward.
 
 \begin{figure}[h!]
     \centering
@@ -319,15 +332,37 @@ activities while the semester is going.
     \includegraphics[width=\linewidth]{../src/stat_005_results/plot}
 
     \caption
-        [Total Number of Activities vs Mean of Activities per Week]
-        {Total Number of Activities vs Mean of Activities per Week.}
+        [Total number of activities vs mean of activities per week]
+        {Total number of activities (Right) vs mean of activities per week
+        (Left).}
 
     \label{fig:stat_005}
 \end{figure}
 
+\begin{figure}[h!]
+    \centering
+
+    \includegraphics[width=\linewidth]{../src/stat_006_results/plot}
+
+    \caption
+        [Total number of active courses per week (bars) vs total active courses (Left)]
+        {Total number of active courses per week (bars) vs total active courses (Left).}
+
+    \label{fig:stat_006}
+\end{figure}
+
 \section{Results}
 
-Table~\ref{tab:results_stats} shows some statistics on the results data.
+Table~\ref{tab:results_stats} shows some statistics on the results data. We see
+that from the available 716 entries, 334 of the, refer to instances of a
+student getting approved on a course.
+
+As seen in section~\ref{sec:results}, the dataset containing the results has
+the fields \textit{Grade}, \textit{Results}, and \textit{FinalResult} for a
+combination of course and student. However, some objects have no values for
+those three fields. When that happens, we interpret the objects as having the
+student not getting approved on that course. From the 716 results, 57 of them
+are empty.
 
 \begin{table}[h!]
     \centering
@@ -335,7 +370,7 @@ Table~\ref{tab:results_stats} shows some statistics on the results data.
     \begin{tabular}{| l | r |}
         \hline
         Number of results           & 716 \\ \hline
-        Number of non-empty results & 57  \\ \hline
+        Number of non-empty results & 659  \\ \hline
         Number of approved students & 334 \\ \hline
     \end{tabular}
 
@@ -345,7 +380,3 @@ Table~\ref{tab:results_stats} shows some statistics on the results data.
 
     \label{tab:results_stats}
 \end{table}
-
-\section{Profile}
-
-\section{Moodle Logs}
