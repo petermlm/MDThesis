@@ -4,13 +4,13 @@
 % =============================================================================
 \section{Data Exploration}
 
-To begin with, we explore what was initially provided in terms of data. The
-repository is a spreadsheet book with 12 sheets. The sheets contain raw data
-and some calculated fields.
+To begin with, we explore the data which was initially provided. The repository
+is a spreadsheet book with 12 sheets. The sheets contain raw data and some
+calculated fields.
 
 In order to explore the data using the bash tools (cut, grep, etc) and tools
 like Python with Pandas, they were exported to a CSV format. Some
-transformations were applied to these files in other to clean useless data
+transformations were applied to these files in order to clean useless data
 points or make the data easier to process.
 
 The provided sheets contain information of courses, students, their activities
@@ -37,12 +37,10 @@ The sheets are the following:
 Some sheets contained information that was the result of calculations from the
 established data. Analysis like these were removed from the data for two
 reasons. First, some analysis are not useful so them being in the data only
-makes the data more complex. By removing such analysis we get a simpler data
+make it more complex. By removing such analysis we get a simpler data
 model. Second, even if some analysis are in fact useful, they are still easily
 reproduced by the Python tools, with the difference that they are only
 reproduced when needed for specific experiments.
-
-Some analysis were made and are described in section~\ref{set:stats}
 
 The sheets that remained after removing analysis data are:
 
@@ -343,8 +341,8 @@ Logs.
     \end{tabular}
 
     \caption
-        [Moode Logs features]
-        {Moode Logs features.}
+        [Moodle Logs features]
+        {Moodle Logs features.}
 
     \label{tab:moodle_logs_features}
 \end{table}
@@ -369,8 +367,8 @@ Logs.
 \section{Preprocessed Datasets}
 \label{sec:preproc_dataset}
 
-From the original data we make an initial pre processing in order to have a
-consistent repository of datasets ready for further analysis. The pre-processed
+From the original data we make an initial preprocessing in order to have a
+consistent repository of datasets ready for further analysis. The preprocessed
 datasets have consistent names and fields.
 
 The data stored in CSV files from which any statistics are calculated and
@@ -440,7 +438,7 @@ fields stated in table~\ref{tab:results_fetures} in section~\ref{sec:results}.
 
 The \texttt{Profile} dataset contains the information stated in
 section~\ref{sec:profile}. The fields are shown in
-table~\ref{tab:profile_fields}.
+table~\ref{tab:profile_features}.
 
 \begin{table}[h!]
     \centering

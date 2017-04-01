@@ -40,7 +40,7 @@ if __name__ == "__main__":
         print("\texp_002a.py clusters_num {limit}")
 
     df = data.dat_001()
-    (kmeans, silhouette) = tasks.unsupervised(df, clusters_num)
+    (kmeans, silhouette) = tasks.unsupervised(df, "kmeans", clusters_num)
 
     for i in range(clusters_num):
         print("Cluster %d" %(i))
