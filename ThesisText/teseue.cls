@@ -295,7 +295,8 @@
 	\@PREAMBULOLATEX
 	\begin{document}
 		\frontmatter
-		\@CAPA
+		% \@CAPA
+		\@SUBCAPA
 		\@SUBCAPA
 		\@PAGINADEDICATORIA
 		\@PREAMBULO
@@ -335,6 +336,8 @@
 %
 \newenvironment{tueSUMARIO}{
 	\chapter*{Sumário}\addcontentsline{toc}{chapter}{Sumário}
+    {\Large Data Mining Educacional Aplicado aos Dados do Moodle da Universidade de Évora}
+    \bigskip
 }{
 	\par
 	\bigskip
