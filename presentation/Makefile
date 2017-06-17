@@ -1,3 +1,5 @@
+PDF_ARGS=-file-line-error -halt-on-error
+
 all:
-	pdflatex main.tex
-	pdflatex main.tex
+	pdflatex $(PDF_ARGS) main.tex
+	pdflatex $(PDF_ARGS) main.tex

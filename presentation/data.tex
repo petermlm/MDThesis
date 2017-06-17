@@ -1,0 +1,102 @@
+\section{University of Évora's Moodle Data}
+
+\begin{frame}
+\frametitle{University of Évora's Moodle Data}
+
+\centering
+Initial Dataset came divided into 11 CSV files
+
+\vspace{1cm}
+
+\begin{columns}[T] % align columns
+\begin{column}{.48\textwidth}
+
+\begin{itemize}
+    \item \texttt{UCs\_SIIUE\_Moodle}
+    \item \texttt{complete\_rate}
+    \item \texttt{completed}
+    \item \texttt{Notas UCS SIIUE}
+    \item \texttt{Profile}
+    \item \texttt{ResultadosUCMoodle}
+\end{itemize}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
+
+\begin{itemize}
+    \item \texttt{Correlação}
+    \item \texttt{Alunos SIIUE E-L}
+    \item \texttt{AlunosMoodle}
+    \item \texttt{export\_weekly}
+    \item \texttt{export\_activity}
+\end{itemize}
+\end{column}%
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{University of Évora's Moodle Data}
+
+\centering
+Data needed to be cleaned and objects and\\features needed to be extracted
+
+\vspace{1cm}
+
+\begin{columns}[T] % align columns
+\begin{column}{.48\textwidth}
+
+\begin{itemize}
+    \item \texttt{UCs\_SIIUE\_Moodle}
+    \item \sout{\texttt{\color{gray}complete\_rate}}
+    \item \sout{\texttt{\color{gray}completed}}
+    \item \texttt{Notas UCS SIIUE}
+    \item \texttt{Profile}
+    \item \texttt{ResultadosUCMoodle}
+\end{itemize}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
+
+\begin{itemize}
+    \item \sout{\texttt{\color{gray}Correlação}}
+    \item \texttt{Alunos SIIUE E-L}
+    \item \texttt{AlunosMoodle}
+    \item \sout{\texttt{\color{gray}export\_weekly}}
+    \item \sout{\texttt{\color{gray}export\_activity}}
+\end{itemize}
+\end{column}%
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Objects and Preprocessed Datasets}
+
+\begin{columns}[T] % align columns
+\begin{column}{.48\textwidth}
+    Preprocessed dataset divided into the following CSV files:
+
+    \begin{itemize}
+        \item Courses*
+
+            \begin{itemize}
+                \item CoursesEntriesOverview
+                \item CoursesGeneral
+                \item CoursesNoMoodle
+                \item CoursesStudents
+            \end{itemize}
+
+        \item MoodleUsers
+        \item Results
+        \item Profile
+        \item MoodleLogs
+    \end{itemize}
+
+    \tiny{*Courses is not a CSV itself}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
+    Relational model for processed data repository
+    \includegraphics[trim={0 1cm 0 4.5cm},clip,width=\linewidth]{../ER/er.pdf}
+\end{column}%
+\end{columns}
+\end{frame}
