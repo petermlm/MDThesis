@@ -18,5 +18,6 @@ bin
 *.toc
 *.nav
 *.snm
+*.vrb
 
 *.otf

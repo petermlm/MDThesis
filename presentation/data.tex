@@ -76,22 +76,28 @@ Data needed to be cleaned and objects and\\features needed to be extracted
     Preprocessed dataset divided into the following CSV files:
 
     \begin{itemize}
-        \item Courses*
+        \item Courses
 
             \begin{itemize}
                 \item CoursesEntriesOverview
                 \item CoursesGeneral
-                \item CoursesNoMoodle
                 \item CoursesStudents
+                \item \color{gray} CoursesNoMoodle*
             \end{itemize}
 
-        \item MoodleUsers
+        \item Users
+
+            \begin{itemize}
+                \item Students
+                \item MoodleUsers
+            \end{itemize}
+
         \item Results
         \item Profile
         \item MoodleLogs
     \end{itemize}
 
-    \tiny{*Courses is not a CSV itself}
+    \tiny{*Discarded from relational Model}
 \end{column}%
 \hfill%
 \begin{column}{.48\textwidth}
