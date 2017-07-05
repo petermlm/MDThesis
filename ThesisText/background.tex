@@ -17,8 +17,8 @@ among others. These platforms organize users by separating them into roles such
 as Professors and Students or Authors and Learners. The Professors or Authors
 are the users who organize courses in universities or training in companies,
 create and publish content, perform evaluation of students, etc. Students or
-Learners are the users which actually perform the training and follow courses
-in the platforms.
+Learners are the users who actually perform the training and follow courses in
+the platforms.
 
 A typical~\gls{lms} contains various data entries which are stored in a
 database. Information on users, such as their names, usage logs, roles, forum
@@ -32,12 +32,12 @@ In the specific case of Moodle, content is divided into courses. Each Moodle
 course represents a course from a University or similar learning institution.
 
 The contents of a course may be resources such as PDF files, links, media such
-as images, videos, etc. These resources should be guides for students achieve
-their objectives in learning, or should be resources needed for the student to
-perform certain tasks. A course may also have activities. Activities may be,
-for example, projects that a student needs to complete before a given deadline.
-Activities may also be quizzes made to students over Moodle. These quizzes may
-be used for evaluation.
+as images, videos, etc. These resources should be guides for students to
+achieve their objectives in learning, or should be resources needed for the
+student to perform certain tasks. A course may also have activities. Activities
+may be, for example, projects that a student needs to complete before a given
+deadline.  Activities may also be quizzes made to students over Moodle. These
+quizzes may be used for evaluation.
 
 Course also have forums, in which professors and students can exchange messages
 which are relevant to the topics at hand.
@@ -135,10 +135,10 @@ are similar to objects within that group, and dissimilar to objects in other
 groups.
 
 One difficulty of clustering is to find the number of clusters that optimally
-divide the data. Some algorithms take a number of clusters as an arguments,
+divide the data. Some algorithms take a number of clusters as an argument,
 while others are able to find an optimal value.
 
-By it's own nature, it may not be possible to find clusters in data, that is,
+By its own nature, it may not be possible to find clusters in data, that is,
 there may not be any great division of objects given their features in a given
 dataset. After executing clustering algorithms a performance measure is used to
 determine if that division is good or not.
@@ -151,7 +151,7 @@ near zero indicate that the clusters overlap.~\cite{book_ml,book_dm_practical}
 
 \subsubsection{K-Means}
 
-K-Means is an clustering algorithm that find $ K $ clusters in data. The $ K $
+K-Means is a clustering algorithm that find $ K $ clusters in data. The $ K $
 variable is given to the algorithm as an argument, hence the name K-Means. The
 algorithm works by creating $ K $ random points based on the features of the
 data. The algorithm then iterates updating the location of those points until
@@ -167,7 +167,7 @@ number of clusters.~\cite{book_ml,book_dm_practical}
 \label{sec:cross_val}
 
 The model used in this project and described in this section always go through
-two processes. Training and testing. To do this two sets of data are needed,
+two processes, training and testing. To do this, two sets of data are needed,
 one for each process. Data for the two processes is usually taken from the same
 dataset in different proportions. For example, some projects may take 75\% or
 90\% of the data to do training, and use the remainder to test.
@@ -198,27 +198,27 @@ evaluation, and so on. In this project, the origin of data is the University of
 Évora's Moodle.
 
 The main objective of~\gls{edm} is to extract meaningful information from
-educational data like web logs. It is not trivial to do so without advance Data
-Mining techniques. \gls{edm}, therefore, aims at training models based on
+educational data like web logs. It is not trivial to do so without advanced
+Data Mining techniques. \gls{edm}, therefore, aims at training models based on
 education data for a variety of tasks.
 
-One such example of an~\gls{edm} tasks is to predict student grades based
+One such example of an~\gls{edm} task is to predict student's grades based
 features from the students themselves, the courses they are undertaking, and
 their activity in a~\gls{lms}. By training such models, professors can make
 decisions about how courses are organized regarding students success. For
 example, a certain number of activities in a given course may be beneficial to
-it's success because it keeps students engaged, but any number of activities
+its success because it keeps students engaged, but any number of activities
 more might not make a difference.~\cite{ind_001, ind_002, ind_005}
 
 These models also detect students which may have greater difficulty completing
 certain courses, or be used to predict how many students will complete a
 certain class.~\cite{ind_007, ind_008}.
 
-In~\cite{ind_001}, some models are trained in order to predict student grades.
-The tasks described in the paper are classification tasks, in which a student
-is assigned to a given class corresponding to their success in courses based on
-their usage of a~\gls{lms} platform. The classes available are Excellent, Good,
-Pass, and Fail.
+In~\cite{ind_001}, some models are trained in order to predict student's
+grades.  The tasks described in the paper are classification tasks, in which a
+student is assigned to a given class corresponding to their success in courses
+based on their usage of a~\gls{lms} platform. The classes available are
+Excellent, Good, Pass, and Fail.
 
 The dataset used in~\cite{ind_001} contained the fields in
 table~\ref{tab:ind_001_004_fields} and was made from registers of 438 students
@@ -297,7 +297,7 @@ in some trained networks while most are just above 80\%. This shows how neural
 networks can be used in this type of problems.
 
 In~\cite{ind_006}, networks are trained from Moodle logs. The data from the
-logs are structured in a slightly different way than the previous studies. The
+logs is structured in a slightly different way than the previous studies. The
 features of this data are shown in table~\ref{tab:ind_006_fields}.
 
 \begin{table}[h!]
