@@ -151,17 +151,32 @@ near zero indicate that the clusters overlap.~\cite{book_ml,book_dm_practical}
 
 \subsubsection{K-Means}
 
-K-Means is a clustering algorithm that find $ K $ clusters in data. The $ K $
+K-Means is a clustering algorithm that finds $ K $ clusters in data. The $ K $
 variable is given to the algorithm as an argument, hence the name K-Means. The
 algorithm works by creating $ K $ random points based on the features of the
-data. The algorithm then iterates updating the location of those points until
-they converge.~\cite{book_ml,book_dm_practical}
+data.
+
+Each point has has many coordinates as there are features, and the domains of
+the coordinates correspond to the domains of the features. Each object in the
+data gets associated with the closets point to it. A set of objects associated
+with the same point is called a cluster.
+
+The algorithm then iterates updating the location of those points by
+calculating the center of of the cluster until convergence is
+reached.~\cite{book_ml,book_dm_practical}
 
 \subsubsection{Affinity Propagation}
 
 Affinity Propagation is another clustering algorithm, but this one does not
 take a number of clusters as an argument. This algorithm finds the optimal
-number of clusters.~\cite{book_ml,book_dm_practical}
+number of clusters.
+
+To find clusters, the algorithm keeps two matrices, a responsibility matrix and
+an availability matrix. Each matrix relates each point in the data to every
+other point. Each step of the algorithm iterates by updating the information on
+these matrices until there is convergence.
+
+~\cite{book_ml,book_dm_practical}
 
 \subsection{Cross Validation}
 \label{sec:cross_val}

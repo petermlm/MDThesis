@@ -15,8 +15,10 @@ points or make the data easier to process.
 
 The provided sheets contain information of courses, students, their activities
 in Moodle, and their results. The data comes from Moodle databases and from the
-SIIUE system. Both systems are integrated, making Moodle plus SIIUE the
-University's own~\gls{lms}.
+SIIUE system. SIIUE is the integrated information system of the university. It
+is the system which contains information on courses, students, their grades,
+among many other things. Both systems are integrated, making Moodle plus SIIUE
+the University's own~\gls{lms}.
 
 The sheets are the following:
 
@@ -32,6 +34,7 @@ The sheets are the following:
     \item \texttt{AlunosMoodle}
     \item \texttt{export\_weekly}
     \item \texttt{export\_activity}
+    \item \texttt{CalculosAlunos.csv}
 \end{itemize}
 
 Some sheets contained information that was the result of calculations from the
@@ -55,7 +58,7 @@ The sheets that remained after removing analysis data are:
 
 The rest of the sheets contains the objects which are going to be used in the
 Data Mining tasks. Those objects and their features are fairly unorganized in
-the original data, so an analysis on of the available features had to be done.
+the original data, so an analysis of the available features had to be done.
 Section~\ref{sec:objs_feat} states the objects found in the data and details
 their features. Section~\ref{sec:preproc_dataset} shows how the final dataset
 is organized.
@@ -65,8 +68,8 @@ is organized.
 \label{sec:objs_feat}
 
 After a first analysis of the data, the objects are identified. These objects
-are courses, students, results, etc. Data mining tasks are applied over these
-objects which are described by their features.
+are courses, Moodle users, results, profile, and Moodle logs. Data mining tasks
+are applied over these objects which are described by their features.
 
 This section specifies objects in this data repository and states their
 features.
@@ -217,7 +220,7 @@ Professors have only the features listed in table~\ref{tab:professor_features}.
 The data contains a field called \textit{Role} which states if that Moodle user
 is a professor or a student. If the user is a professor the role has a value of
 5. If it is a student, it has a value of 3. A few users with a value of 4 are
-present. These users have the role of editor, but the Moodle logs only have 11
+present. These users have the role of editor, but the Moodle logs only have 10
 entries for a user of this role, so they are simply discarded.
 
 \begin{table}[h!]
@@ -227,6 +230,7 @@ entries for a user of this role, so they are simply discarded.
         Feature                 & Data Type \\ \hline
         \textit{MoodleUsername} & String    \\
         \textit{Name}           & String    \\
+        \textit{Role}           & Enumerated \\
     \end{tabular}
 
     \caption
