@@ -469,7 +469,7 @@
 			\par%
 			\vspace{2em}
 			%	
-			\textit{Esta \@monografia\ n\~{a}o inclui as cr\'{i}ticas e sugest\~{o}es feitas pelo J\'{u}ri}
+			\textit{Esta \@monografia\ inclui as cr\'{i}ticas e sugest\~{o}es feitas pelo J\'{u}ri}
 			%
 			\par
 			\vspace{2em}
@@ -586,7 +586,7 @@
 			\par
 			\vspace*{3em}
 			%
-			{\footnotesize\textit{Esta \@monografia\ n\~{a}o inclui as cr\'{i}ticas e sugest\~{o}es feitas pelo J\'{u}ri}\\}
+			{\footnotesize\textit{Esta \@monografia\ inclui as cr\'{i}ticas e sugest\~{o}es feitas pelo J\'{u}ri}\\}
 			%
 		}
 	\end{tabular} 
